@@ -1,7 +1,9 @@
+import Link from "next/link";
+
 const NAV = [
   { href: "#o-rakii", label: "О ракии" },
   { href: "#klub", label: "О клубе" },
-  { href: "#vstrechi", label: "Встречи" },
+  { href: "/raspisanie/", label: "Расписание" },
   { href: "#vstupit", label: "Как вступить" },
   { href: "#pravila", label: "Правила" },
   { href: "#kontakty", label: "Контакты" },
@@ -118,11 +120,17 @@ export default function Home() {
             </span>
           </a>
           <nav className="nav">
-            {NAV.map((item) => (
-              <a key={item.href} href={item.href}>
-                {item.label}
-              </a>
-            ))}
+            {NAV.map((item) =>
+              item.href.startsWith("/") ? (
+                <Link key={item.href} href={item.href}>
+                  {item.label}
+                </Link>
+              ) : (
+                <a key={item.href} href={item.href}>
+                  {item.label}
+                </a>
+              )
+            )}
           </nav>
           <a href="#vstupit" className="btn btn-sm">
             Вступить
@@ -148,9 +156,9 @@ export default function Home() {
               <a href="#vstupit" className="btn">
                 Присоединиться к клубу
               </a>
-              <a href="#vstrechi" className="btn btn-ghost">
+              <Link href="/raspisanie/" className="btn btn-ghost">
                 Расписание встреч
-              </a>
+              </Link>
             </div>
             <ul className="hero-stats">
               <li>
@@ -245,6 +253,11 @@ export default function Home() {
                   <p>{m.text}</p>
                 </article>
               ))}
+            </div>
+            <div className="hero-actions">
+              <Link href="/raspisanie/" className="btn">
+                Смотреть расписание встреч
+              </Link>
             </div>
           </div>
         </section>
