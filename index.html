@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KVIS TRADE — Экспертный импорт и дистрибуция премиум-алкоголя в России</title>
+  <meta name="description" content="KVIS TRADE — стратегический мост для болгарских производителей высококачественного алкоголя к премиум-рынку Российской Федерации. 26 лет опыта, готовый дистрибуционный канал в Москве." />
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['"Playfair Display"', 'serif'],
+            sans: ['Montserrat', 'sans-serif'],
+          },
+          colors: {
+            ink: {
+              900: '#070707',
+              800: '#0d0d0d',
+              700: '#141414',
+              600: '#1c1c1c',
+            },
+            gold: {
+              light: '#FCF6BA',
+              DEFAULT: '#D4AF37',
+              mid: '#BF953F',
+              deep: '#AA771C',
+            },
+            cream: '#EDE6D6',
+            muted: '#9c9382',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    body { background-color: #070707; }
+
+    /* Gold gradient text */
+    .text-gold-grad {
+      background: linear-gradient(92deg, #BF953F 0%, #FCF6BA 35%, #D4AF37 55%, #AA771C 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .border-gold-grad { border-image: linear-gradient(135deg, #BF953F, #FCF6BA, #AA771C) 1; }
+    .bg-gold-grad { background: linear-gradient(120deg, #BF953F 0%, #FCF6BA 45%, #AA771C 100%); }
+
+    /* Thin gold hairline frame */
+    .hairline { border: 1px solid rgba(212,175,55,0.25); }
+    .hairline-strong { border: 1px solid rgba(212,175,55,0.45); }
+
+    /* Subtle radial glow */
+    .glow::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(60% 50% at 50% 0%, rgba(191,149,63,0.10), transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Reveal on scroll */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+
+    /* Card hover */
+    .lux-card { transition: transform .4s ease, box-shadow .4s ease, border-color .4s ease; }
+    .lux-card:hover { transform: translateY(-6px); border-color: rgba(212,175,55,0.55); box-shadow: 0 24px 60px -20px rgba(191,149,63,0.35); }
+
+    /* Nav link underline */
+    .navlink { position: relative; }
+    .navlink::after { content:''; position:absolute; left:0; bottom:-4px; height:1px; width:0; background:linear-gradient(90deg,#BF953F,#FCF6BA); transition:width .3s ease; }
+    .navlink:hover::after { width:100%; }
+
+    /* Hero bg image with overlay */
+    .hero-bg {
+      background:
+        linear-gradient(180deg, rgba(7,7,7,0.55) 0%, rgba(7,7,7,0.82) 55%, #070707 100%),
+        url('https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?q=80&w=2000&auto=format&fit=crop');
+      background-size: cover; background-position: center;
+    }
+
+    ::selection { background: rgba(212,175,55,0.3); color:#fff; }
+    html { scroll-padding-top: 88px; }
+
+    /* Marquee for facts */
+    @keyframes shimmer { 0%{background-position:-200% center} 100%{background-position:200% center} }
+    .shimmer { background: linear-gradient(90deg, #BF953F, #FCF6BA, #BF953F); background-size:200% auto; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; animation: shimmer 4s linear infinite; }
+  </style>
+</head>
+
+<body class="font-sans text-cream antialiased selection:bg-gold/30">
+
+  <!-- ============ HEADER ============ -->
+  <header id="top" class="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-ink-900/70 border-b border-gold/15">
+    <nav class="max-w-7xl mx-auto px-5 sm:px-8 h-[72px] flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#top" class="flex items-center gap-3 group">
+        <svg class="h-9 w-9 text-gold transition-transform group-hover:rotate-6" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4">
+          <path d="M20 22c-7 0-12 5-12 10s5 10 12 10c5 0 9-4 12-10 3-6 7-10 12-10 7 0 12 5 12 10s-5 10-12 10c-5 0-9-4-12-10-3-6-7-10-12-10z" stroke-linejoin="round"/>
+        </svg>
+        <span class="flex flex-col leading-none">
+          <span class="font-display font-bold tracking-[0.18em] text-lg text-gold-grad">KVIS TRADE</span>
+          <span class="text-[9px] tracking-[0.35em] text-muted uppercase">Premium Gateway</span>
+        </span>
+      </a>
+
+      <!-- Desktop menu -->
+      <ul class="hidden lg:flex items-center gap-9 text-[13px] tracking-wide uppercase text-cream/80">
+        <li><a href="#market" class="navlink hover:text-gold transition">Рынок</a></li>
+        <li><a href="#solutions" class="navlink hover:text-gold transition">Решения</a></li>
+        <li><a href="#experience" class="navlink hover:text-gold transition">Опыт</a></li>
+        <li><a href="#products" class="navlink hover:text-gold transition">Продукты</a></li>
+        <li><a href="#partner" class="navlink hover:text-gold transition">Партнёрство</a></li>
+      </ul>
+
+      <div class="flex items-center gap-4">
+        <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 text-[12px] font-semibold tracking-widest uppercase text-ink-900 bg-gold-grad rounded-full hover:brightness-110 transition">
+          Связаться
+        </a>
+        <button id="burger" class="lg:hidden text-gold p-1" aria-label="Меню">
+          <svg class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="hidden lg:hidden border-t border-gold/15 bg-ink-900/95 px-6 py-5 space-y-4 text-sm uppercase tracking-wide">
+      <a href="#market" class="block hover:text-gold">Рынок</a>
+      <a href="#solutions" class="block hover:text-gold">Решения</a>
+      <a href="#experience" class="block hover:text-gold">Опыт</a>
+      <a href="#products" class="block hover:text-gold">Продукты</a>
+      <a href="#partner" class="block hover:text-gold">Партнёрство</a>
+      <a href="#contact" class="block text-gold">Контакты</a>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero-bg relative min-h-screen flex items-center pt-[72px]">
+    <div class="absolute inset-0 glow"></div>
+    <div class="relative max-w-7xl mx-auto px-5 sm:px-8 py-24 w-full">
+      <div class="max-w-3xl">
+        <p class="reveal inline-flex items-center gap-3 mb-7 text-[11px] sm:text-xs tracking-[0.3em] uppercase text-gold/90 hairline-strong rounded-full px-4 py-2">
+          <span class="h-1.5 w-1.5 rounded-full bg-gold"></span>
+          КВИС ТРЕЙД ЕООД · София, Болгария
+        </p>
+
+        <h1 class="reveal font-display font-extrabold leading-[1.05] text-4xl sm:text-6xl lg:text-7xl mb-6">
+          <span class="text-gold-grad">Экспертный импорт</span><br/>
+          <span class="text-cream">и дистрибуция</span>
+        </h1>
+
+        <p class="reveal font-display italic text-xl sm:text-2xl text-cream/90 mb-6">
+          Стратегический мост к премиум-рынку Российской Федерации.
+        </p>
+
+        <p class="reveal text-base sm:text-lg text-muted leading-relaxed max-w-2xl mb-10">
+          Специализированное партнёрство для болгарских производителей высококачественного алкоголя,
+          для которых Россия — стратегическая цель.
+        </p>
+
+        <div class="reveal flex flex-wrap items-center gap-4">
+          <a href="#contact" class="inline-flex items-center gap-2 px-8 py-4 text-sm font-semibold tracking-widest uppercase text-ink-900 bg-gold-grad rounded-full hover:brightness-110 transition shadow-lg shadow-gold/20">
+            Начать партнёрство
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6"/></svg>
+          </a>
+          <a href="#market" class="inline-flex items-center gap-2 px-8 py-4 text-sm font-semibold tracking-widest uppercase text-gold hairline-strong rounded-full hover:bg-gold/10 transition">
+            Почему Москва?
+          </a>
+        </div>
+      </div>
+
+      <!-- Hero badges -->
+      <div class="reveal mt-16 grid grid-cols-2 sm:grid-cols-4 gap-px bg-gold/15 hairline rounded-2xl overflow-hidden max-w-4xl">
+        <div class="bg-ink-900/80 px-6 py-6 text-center sm:text-left">
+          <div class="font-display text-3xl text-gold-grad">2023</div>
+          <div class="text-[11px] tracking-widest uppercase text-muted mt-1">Основана</div>
+        </div>
+        <div class="bg-ink-900/80 px-6 py-6 text-center sm:text-left">
+          <div class="font-display text-3xl text-gold-grad">26 лет</div>
+          <div class="text-[11px] tracking-widest uppercase text-muted mt-1">Опыт в РФ</div>
+        </div>
+        <div class="bg-ink-900/80 px-6 py-6 text-center sm:text-left">
+          <div class="font-display text-3xl text-gold-grad">Premium</div>
+          <div class="text-[11px] tracking-widest uppercase text-muted mt-1">& Super Premium</div>
+        </div>
+        <div class="bg-ink-900/80 px-6 py-6 text-center sm:text-left">
+          <div class="font-display text-3xl text-gold-grad">Москва</div>
+          <div class="text-[11px] tracking-widest uppercase text-muted mt-1">Элитный сегмент</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MARKET / MOSCOW ============ -->
+  <section id="market" class="relative py-24 sm:py-32 border-t border-gold/10">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="reveal max-w-3xl mb-16">
+        <span class="text-xs tracking-[0.3em] uppercase text-gold/80">Рыночный потенциал</span>
+        <h2 class="font-display font-bold text-3xl sm:text-5xl mt-4 mb-6">
+          Москва: <span class="text-gold-grad">масштаб</span> премиум-сегмента
+        </h2>
+        <p class="text-muted text-lg leading-relaxed">
+          Российский рынок необъятен, но истинная ценность лежит в элитном сегменте столицы.
+          Спрос на аутентичные продукты с ясной историей <span class="text-cream">превышает предложение.</span>
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-6">
+        <!-- card -->
+        <article class="reveal lux-card hairline rounded-2xl bg-ink-800 p-8 relative overflow-hidden">
+          <div class="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-gold/5"></div>
+          <div class="h-12 w-12 rounded-xl bg-gold-grad flex items-center justify-center mb-6 text-ink-900">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 21h18M5 21V8l7-4 7 4v13M9 21v-6h6v6"/></svg>
+          </div>
+          <h3 class="font-display text-xl text-gold mb-3">HoReCa &amp; Рестораны</h3>
+          <p class="text-muted leading-relaxed">Огромный объём и дефицитные позиции в винных картах элитных московских ресторанов.</p>
+        </article>
+
+        <article class="reveal lux-card hairline rounded-2xl bg-ink-800 p-8 relative overflow-hidden">
+          <div class="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-gold/5"></div>
+          <div class="h-12 w-12 rounded-xl bg-gold-grad flex items-center justify-center mb-6 text-ink-900">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 2h8l-1 8a3 3 0 0 1-6 0L8 2zM12 16v6M8 22h8"/></svg>
+          </div>
+          <h3 class="font-display text-xl text-gold mb-3">Закрытые клубы и винотеки</h3>
+          <p class="text-muted leading-relaxed">Высокая покупательная способность и лояльная аудитория, ищущая эксклюзивные премиум-дистилляты и тихие вина.</p>
+        </article>
+
+        <article class="reveal lux-card hairline rounded-2xl bg-ink-800 p-8 relative overflow-hidden">
+          <div class="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-gold/5"></div>
+          <div class="h-12 w-12 rounded-xl bg-gold-grad flex items-center justify-center mb-6 text-ink-900">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h16M7 4v16"/></svg>
+          </div>
+          <h3 class="font-display text-xl text-gold mb-3">Федеральные сети <span class="text-sm text-muted">(Premium tier)</span></h3>
+          <p class="text-muted leading-relaxed">Готовность к листингу продуктов с премиальным оформлением и доказанным качеством.</p>
+        </article>
+      </div>
+
+      <!-- Mission banner -->
+      <div class="reveal mt-12 hairline-strong rounded-2xl bg-gradient-to-r from-ink-800 to-ink-900 p-8 sm:p-10 flex flex-col sm:flex-row sm:items-center gap-5">
+        <span class="text-xs tracking-[0.3em] uppercase text-gold whitespace-nowrap">Наша миссия</span>
+        <p class="font-display text-lg sm:text-2xl text-cream leading-snug">
+          Масштабное возвращение болгарского вина и спиртных напитков на российский рынок на <span class="text-gold-grad">принципиально новом, элитарном уровне.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BARRIERS & SOLUTIONS ============ -->
+  <section id="solutions" class="relative py-24 sm:py-32 bg-ink-800/40 border-y border-gold/10">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="reveal max-w-3xl mb-16">
+        <span class="text-xs tracking-[0.3em] uppercase text-gold/80">Барьеры и решения</span>
+        <h2 class="font-display font-bold text-3xl sm:text-5xl mt-4 mb-6">
+          Как работать <span class="text-gold-grad">эффективно</span> в России
+        </h2>
+        <p class="text-muted text-lg leading-relaxed">
+          Российский рынок не свободен — он строго регулируется. Прямой импорт скрывает тяжёлые
+          инфраструктурные расходы. Мы предлагаем <span class="text-cream">интеллектуальный обходной маршрут.</span>
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-8">
+        <!-- Traditional -->
+        <div class="reveal rounded-2xl border border-red-900/30 bg-ink-900 p-8">
+          <h3 class="flex items-center gap-3 text-lg font-semibold uppercase tracking-wide text-red-300/70 mb-6">
+            <span class="h-2 w-2 rounded-full bg-red-500/60"></span>
+            Традиционный прямой подход
+          </h3>
+          <ul class="space-y-4">
+            <li class="flex gap-3 text-muted"><span class="text-red-400/70 mt-0.5">✕</span> Дорогое содержание собственных лицензий в РФ.</li>
+            <li class="flex gap-3 text-muted"><span class="text-red-400/70 mt-0.5">✕</span> Сложный комплаенс и бюрократия.</li>
+            <li class="flex gap-3 text-muted"><span class="text-red-400/70 mt-0.5">✕</span> Риски при таможенном оформлении.</li>
+            <li class="flex gap-3 text-muted"><span class="text-red-400/70 mt-0.5">✕</span> Построение логистики с нуля.</li>
+          </ul>
+        </div>
+
+        <!-- KVIS smart -->
+        <div class="reveal rounded-2xl hairline-strong bg-gradient-to-br from-ink-700 to-ink-900 p-8 relative overflow-hidden">
+          <div class="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-gold/5"></div>
+          <h3 class="flex items-center gap-3 text-lg font-semibold uppercase tracking-wide text-gold mb-6">
+            <span class="h-2 w-2 rounded-full bg-gold"></span>
+            Умная логистика KVIS TRADE
+          </h3>
+          <ul class="space-y-5">
+            <li>
+              <div class="flex gap-3"><span class="text-gold mt-0.5">✓</span><div><span class="text-cream font-semibold">Юридическая безупречность:</span> <span class="text-muted">Импорт через ведущих, уже лицензированных российских дистрибьюторов.</span></div></div>
+            </li>
+            <li>
+              <div class="flex gap-3"><span class="text-gold mt-0.5">✓</span><div><span class="text-cream font-semibold">Нулевые излишние расходы:</span> <span class="text-muted">Проект не обременяется инфраструктурными тяжестями.</span></div></div>
+            </li>
+            <li>
+              <div class="flex gap-3"><span class="text-gold mt-0.5">✓</span><div><span class="text-cream font-semibold">Оптимизированные поставки:</span> <span class="text-muted">Полностью переданные на субподряд процессы закупки и хранения.</span></div></div>
+            </li>
+            <li>
+              <div class="flex gap-3"><span class="text-gold mt-0.5">✓</span><div><span class="text-cream font-semibold">Готовый канал:</span> <span class="text-muted">Мгновенный доступ через сильные партнёрские связи.</span></div></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EXPERIENCE ============ -->
+  <section id="experience" class="relative py-24 sm:py-32">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="reveal max-w-3xl mb-16">
+        <span class="text-xs tracking-[0.3em] uppercase text-gold/80">Фундамент</span>
+        <h2 class="font-display font-bold text-3xl sm:text-5xl mt-4 mb-6">
+          Практика, <span class="text-gold-grad">а не теория</span>
+        </h2>
+        <p class="text-muted text-lg leading-relaxed">
+          KVIS TRADE — не теоретический стартап. Мы опираемся на более чем четверть века
+          непосредственного опыта в управлении продажами <span class="text-cream">внутри России.</span>
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-10 items-center">
+        <!-- Left cards -->
+        <div class="space-y-6 reveal">
+          <div class="lux-card hairline rounded-2xl bg-ink-800 p-6">
+            <h3 class="font-display text-lg text-gold mb-2">Глубокое понимание</h3>
+            <p class="text-muted text-sm leading-relaxed">Знание менталитета российского потребителя и регуляторных тонкостей.</p>
+          </div>
+          <div class="lux-card hairline rounded-2xl bg-ink-800 p-6">
+            <h3 class="font-display text-lg text-gold mb-2">Гарантированный результат</h3>
+            <p class="text-muted text-sm leading-relaxed">Проект, основанный на действующих торговых отношениях для устойчивых продаж.</p>
+          </div>
+        </div>
+
+        <!-- Center medallion -->
+        <div class="reveal flex justify-center">
+          <div class="relative h-64 w-64 sm:h-72 sm:w-72 rounded-full bg-gradient-to-br from-gold-mid via-gold-light to-gold-deep flex flex-col items-center justify-center text-ink-900 shadow-2xl shadow-gold/30">
+            <div class="absolute inset-2 rounded-full border border-ink-900/30"></div>
+            <span class="font-display font-black text-6xl sm:text-7xl leading-none">26</span>
+            <span class="font-display text-xl tracking-wide mt-1">ЛЕТ</span>
+            <span class="text-xs tracking-[0.4em] uppercase mt-1">Опыта</span>
+          </div>
+        </div>
+
+        <!-- Right cards -->
+        <div class="space-y-6 reveal">
+          <div class="lux-card hairline rounded-2xl bg-ink-800 p-6">
+            <h3 class="font-display text-lg text-gold mb-2">Прямые связи</h3>
+            <p class="text-muted text-sm leading-relaxed">Выстроенные личные контакты с топ-импортёрами в Российской Федерации.</p>
+          </div>
+          <div class="lux-card hairline rounded-2xl bg-ink-800 p-6">
+            <h3 class="font-display text-lg text-gold mb-2">Инновации для вовлечения</h3>
+            <p class="text-muted text-sm leading-relaxed">Цифровые sommelier-инструменты (сенсорные профили через QR-коды) и бутики-шоурумы.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRODUCT FOCUS ============ -->
+  <section id="products" class="relative py-24 sm:py-32 bg-ink-800/40 border-y border-gold/10">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="grid lg:grid-cols-2 gap-14 items-start">
+        <div>
+          <div class="reveal mb-10">
+            <span class="text-xs tracking-[0.3em] uppercase text-gold/80">Продуктовый фокус</span>
+            <h2 class="font-display font-bold text-3xl sm:text-5xl mt-4 mb-6">
+              Исключительно <span class="text-gold-grad">Premium &amp; Super Premium</span>
+            </h2>
+            <p class="text-muted text-lg leading-relaxed">
+              Действующий таможенный и акцизный режим в РФ делает импорт дешёвого алкоголя
+              коммерчески неэффективным. Наш фокус полностью на <span class="text-cream">высокой маржинальности.</span>
+            </p>
+          </div>
+
+          <!-- Funnel visual -->
+          <div class="reveal space-y-2 max-w-md">
+            <div class="text-center text-xs tracking-widest uppercase text-muted bg-ink-700 rounded-t-lg py-3 hairline">Эконом-класс</div>
+            <div class="text-center text-sm tracking-widest uppercase text-cream bg-ink-600 py-3 mx-6 hairline">Пошлины &amp; Акцизы</div>
+            <div class="text-center text-sm font-semibold tracking-widest uppercase text-ink-900 bg-gold-grad py-4 mx-12 rounded-b-lg shadow-lg shadow-gold/20">Premium &amp; Super Premium</div>
+          </div>
+        </div>
+
+        <!-- Product grid -->
+        <div class="grid sm:grid-cols-2 gap-5">
+          <div class="reveal lux-card hairline rounded-2xl bg-ink-900 p-6">
+            <h3 class="font-display text-lg text-gold mb-2">Тихие вина</h3>
+            <p class="text-muted text-sm">Элегантные серии с ясным терруаром.</p>
+          </div>
+          <div class="reveal lux-card hairline rounded-2xl bg-ink-900 p-6">
+            <h3 class="font-display text-lg text-gold mb-2">Традиционные ракии</h3>
+            <p class="text-muted text-sm">Аутентичный характер и премиальное оформление.</p>
+          </div>
+          <div class="reveal lux-card hairline rounded-2xl bg-ink-900 p-6">
+            <h3 class="font-display text-lg text-gold mb-2">Бренди</h3>
+            <p class="text-muted text-sm">Статусные напитки для искушённой аудитории.</p>
+          </div>
+          <div class="reveal lux-card hairline rounded-2xl bg-ink-900 p-6">
+            <h3 class="font-display text-lg text-gold mb-2">Выдержанные дистилляты</h3>
+            <p class="text-muted text-sm">Заполнение дефицитных ниш после ухода западных марок.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Synergy banner -->
+      <div class="reveal mt-14 hairline-strong rounded-2xl bg-gradient-to-r from-ink-900 to-ink-800 p-8 sm:p-10">
+        <span class="text-xs tracking-[0.3em] uppercase text-gold">Синергия традиций</span>
+        <p class="font-display text-lg sm:text-2xl text-cream leading-snug mt-3">
+          Формируем эксклюзивный пул проверенных производителей, включая
+          <span class="text-gold-grad">Black Sea Gold</span>, <span class="text-gold-grad">Katarzyna Estate</span> и <span class="text-gold-grad">SIS Industries</span>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PARTNER BENEFITS ============ -->
+  <section id="partner" class="relative py-24 sm:py-32">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="reveal max-w-3xl mb-16">
+        <span class="text-xs tracking-[0.3em] uppercase text-gold/80">Партнёрство</span>
+        <h2 class="font-display font-bold text-3xl sm:text-5xl mt-4">
+          Что вы получаете <span class="text-gold-grad">как наш партнёр</span>
+        </h2>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-6">
+        <article class="reveal lux-card hairline rounded-2xl bg-ink-800 p-8">
+          <div class="h-14 w-14 rounded-2xl bg-gold-grad flex items-center justify-center text-ink-900 mb-6">
+            <svg class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 7a4 4 0 1 0-3.5 3.97L8 14.5V17H5.5L3 19.5 2 22l1.5.5.5-1.5L7 18h3l4.97-4.97A4 4 0 0 0 15 7z"/></svg>
+          </div>
+          <h3 class="font-display text-2xl text-gold mb-3">Концепция «под ключ»</h3>
+          <p class="text-muted leading-relaxed">Готовые концептуальные решения для позиционирования на полке в федеральных сетях или в винной карте элитных ресторанов.</p>
+        </article>
+
+        <article class="reveal lux-card hairline rounded-2xl bg-ink-800 p-8">
+          <div class="h-14 w-14 rounded-2xl bg-gold-grad flex items-center justify-center text-ink-900 mb-6">
+            <svg class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-6h6v6M3 10h18"/></svg>
+          </div>
+          <h3 class="font-display text-2xl text-gold mb-3">Маркетинг и авторитет</h3>
+          <p class="text-muted leading-relaxed">Полная маркетинговая поддержка. Презентация ваших марок через специализированные флагманские бутики-шоурумы в Москве.</p>
+        </article>
+
+        <article class="reveal lux-card hairline rounded-2xl bg-ink-800 p-8">
+          <div class="h-14 w-14 rounded-2xl bg-gold-grad flex items-center justify-center text-ink-900 mb-6">
+            <svg class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m3 9 3 9h12l3-9-5 3-4-7-4 7-5-3zM5 21h14"/></svg>
+          </div>
+          <h3 class="font-display text-2xl text-gold mb-3">Премиум-позиционирование</h3>
+          <p class="text-muted leading-relaxed">Ваши продукты не потеряются в массовом сегменте. Они представляются как элитарный выбор для аудитории, готовой платить за аутентичность.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact" class="relative py-24 sm:py-32 bg-ink-800/40 border-t border-gold/10 glow">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 grid lg:grid-cols-2 gap-14 items-center">
+      <!-- Left: pitch + form -->
+      <div class="reveal">
+        <h2 class="font-display font-extrabold text-3xl sm:text-5xl leading-tight mb-6">
+          Если Россия — <span class="text-gold-grad">ваша цель</span>, мы — ваш путь.
+        </h2>
+        <p class="text-muted text-lg leading-relaxed mb-10">
+          Мы ищем долгосрочное сотрудничество с амбициозными производителями в Болгарии.
+          Открыты для обсуждения первых шагов и организации тестовых дегустационных сессий.
+        </p>
+
+        <form class="space-y-4" onsubmit="event.preventDefault(); this.reset(); document.getElementById('formMsg').classList.remove('hidden');">
+          <div class="grid sm:grid-cols-2 gap-4">
+            <input required type="text" placeholder="Ваше имя" class="w-full bg-ink-900 hairline rounded-lg px-4 py-3.5 text-cream placeholder:text-muted/70 focus:border-gold focus:outline-none transition" />
+            <input required type="text" placeholder="Компания / Производитель" class="w-full bg-ink-900 hairline rounded-lg px-4 py-3.5 text-cream placeholder:text-muted/70 focus:border-gold focus:outline-none transition" />
+          </div>
+          <input required type="email" placeholder="Email для связи" class="w-full bg-ink-900 hairline rounded-lg px-4 py-3.5 text-cream placeholder:text-muted/70 focus:border-gold focus:outline-none transition" />
+          <textarea rows="4" placeholder="Расскажите о ваших продуктах..." class="w-full bg-ink-900 hairline rounded-lg px-4 py-3.5 text-cream placeholder:text-muted/70 focus:border-gold focus:outline-none transition resize-none"></textarea>
+          <button type="submit" class="inline-flex items-center gap-2 px-8 py-4 text-sm font-semibold tracking-widest uppercase text-ink-900 bg-gold-grad rounded-full hover:brightness-110 transition">
+            Отправить запрос
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6"/></svg>
+          </button>
+          <p id="formMsg" class="hidden text-gold text-sm">Спасибо! Мы свяжемся с вами для дегустационной сессии.</p>
+        </form>
+      </div>
+
+      <!-- Right: contact card + map -->
+      <div class="reveal hairline-strong rounded-2xl bg-ink-900 p-8 sm:p-10">
+        <h3 class="font-display text-2xl text-cream mb-1">Ивайло Михайлов</h3>
+        <p class="text-gold text-sm tracking-wide mb-8">Основатель и руководитель проекта</p>
+
+        <ul class="space-y-5 text-sm">
+          <li class="flex items-start gap-4">
+            <span class="text-gold mt-0.5"><svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 0 1 2-2h2.3a1 1 0 0 1 1 .76l1 4a1 1 0 0 1-.29 1L7.6 10.6a13 13 0 0 0 5.8 5.8l1.84-1.7a1 1 0 0 1 1-.3l4 1a1 1 0 0 1 .76 1V19a2 2 0 0 1-2 2A16 16 0 0 1 3 5z"/></svg></span>
+            <div><div class="text-muted text-xs uppercase tracking-widest">Телефон</div><a href="tel:+79162432396" class="text-cream hover:text-gold transition">+7 (916) 243-23-96</a></div>
+          </li>
+          <li class="flex items-start gap-4">
+            <span class="text-gold mt-0.5"><svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7l9 6 9-6M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/></svg></span>
+            <div><div class="text-muted text-xs uppercase tracking-widest">E-mail</div><a href="mailto:kvistrade@gmail.com" class="text-cream hover:text-gold transition">kvistrade@gmail.com</a></div>
+          </li>
+          <li class="flex items-start gap-4">
+            <span class="text-gold mt-0.5"><svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21s7-6.5 7-11a7 7 0 1 0-14 0c0 4.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+            <div><div class="text-muted text-xs uppercase tracking-widest">Штаб-квартира</div><span class="text-cream">ул. Бистришко шоссе 18, г. София, Болгария</span></div>
+          </li>
+          <li class="flex items-start gap-4">
+            <span class="text-gold mt-0.5"><svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m-6-8h6M7 3h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/></svg></span>
+            <div><div class="text-muted text-xs uppercase tracking-widest">Юридическое лицо</div><span class="text-cream">КВИС ТРЕЙД ЕООД · ЕИК 207595321</span></div>
+          </li>
+        </ul>
+
+        <!-- Map placeholder -->
+        <a href="https://maps.google.com/?q=Bistrishko+shose+18+Sofia+Bulgaria" target="_blank" rel="noopener"
+           class="mt-8 block rounded-xl overflow-hidden hairline relative group">
+          <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=1200&auto=format&fit=crop" alt="Карта София" class="h-40 w-full object-cover opacity-50 group-hover:opacity-70 transition" />
+          <div class="absolute inset-0 flex items-center justify-center">
+            <span class="inline-flex items-center gap-2 text-sm text-gold bg-ink-900/80 px-4 py-2 rounded-full hairline-strong">
+              <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21s7-6.5 7-11a7 7 0 1 0-14 0c0 4.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+              Посмотреть на карте · София
+            </span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="border-t border-gold/15 bg-ink-900">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 py-14">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+        <div class="flex items-center gap-3">
+          <svg class="h-9 w-9 text-gold" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4">
+            <path d="M20 22c-7 0-12 5-12 10s5 10 12 10c5 0 9-4 12-10 3-6 7-10 12-10 7 0 12 5 12 10s-5 10-12 10c-5 0-9-4-12-10-3-6-7-10-12-10z" stroke-linejoin="round"/>
+          </svg>
+          <div class="leading-none">
+            <div class="font-display font-bold tracking-[0.18em] text-lg text-gold-grad">KVIS TRADE</div>
+            <div class="text-[10px] tracking-[0.3em] text-muted uppercase mt-1">Premium Gateway · 2023</div>
+          </div>
+        </div>
+
+        <p class="font-display italic text-center text-cream/80 text-lg shimmer">
+          Ваш эксклюзивный доступ к премиум-рынку Москвы.
+        </p>
+
+        <div class="flex items-center gap-4">
+          <a href="mailto:kvistrade@gmail.com" aria-label="Email" class="h-10 w-10 rounded-full hairline flex items-center justify-center text-gold hover:bg-gold/10 transition"><svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7l9 6 9-6M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/></svg></a>
+          <a href="tel:+79162432396" aria-label="Телефон" class="h-10 w-10 rounded-full hairline flex items-center justify-center text-gold hover:bg-gold/10 transition"><svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 0 1 2-2h2.3a1 1 0 0 1 1 .76l1 4a1 1 0 0 1-.29 1L7.6 10.6a13 13 0 0 0 5.8 5.8l1.84-1.7a1 1 0 0 1 1-.3l4 1a1 1 0 0 1 .76 1V19a2 2 0 0 1-2 2A16 16 0 0 1 3 5z"/></svg></a>
+        </div>
+      </div>
+
+      <div class="mt-10 pt-8 border-t border-gold/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted">
+        <span>© 2026 КВИС ТРЕЙД ЕООД · ЕИК 207595321 · София, Болгария</span>
+        <span class="tracking-widest uppercase">Экспертный импорт · Дистрибуция · Международные стандарты</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============ SCRIPTS ============ -->
+  <script>
+    // Mobile menu toggle
+    const burger = document.getElementById('burger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    burger.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+
+    // Scroll reveal
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach((el, i) => {
+      el.style.transitionDelay = (i % 4) * 80 + 'ms';
+      io.observe(el);
+    });
+  </script>
+</body>
+</html>
