@@ -1,0 +1,52 @@
+name: Публикация в Telegram
+
+on:
+  schedule:
+    # 07:05 UTC ≈ 10:05 МСК. Cron в Actions в UTC и может опаздывать на пару минут.
+    - cron: "5 7 * * *"
+  workflow_dispatch:        # ручной запуск «опубликовать сейчас»
+    inputs:
+      dry_run:
+        description: "Пробный прогон без отправки (1 = да)"
+        required: false
+        default: "0"
+
+# нужно, чтобы воркфлоу мог закоммитить обновлённый queue.json
+permissions:
+  contents: write
+
+concurrency:
+  group: telegram-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Publish due posts
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          DRY_RUN: ${{ github.event.inputs.dry_run }}
+        run: python telegram/publish.py
+
+      - name: Commit queue state
+        if: ${{ github.event.inputs.dry_run != '1' }}
+        run: |
+          if [[ -n "$(git status --porcelain telegram/queue.json)" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add telegram/queue.json
+            git commit -m "Telegram: отметить опубликованные посты [skip ci]"
+            git push
+          else
+            echo "Изменений в очереди нет."
+          fi
