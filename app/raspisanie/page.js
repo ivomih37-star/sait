@@ -136,12 +136,12 @@ export default function Schedule() {
               </p>
               <div className="hero-actions">
                 <a
-                  href="https://t.me/raki_club_msk"
+                  href="https://t.me/raki_club_chat"
                   className="btn"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Записаться в Telegram
+                  💬 Записаться в чате
                 </a>
                 <Link href="/#vstupit" className="btn btn-ghost">
                   Как вступить в клуб
