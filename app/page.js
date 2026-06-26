@@ -271,21 +271,26 @@ export default function Home() {
                 закуски на конкретной встрече. Чтобы попасть в клуб:
               </p>
               <ol className="steps">
-                <li>Напишите нам в Telegram или на почту.</li>
+                <li>Вступайте в наш чат в Telegram и представьтесь.</li>
                 <li>Расскажите пару слов о себе — мы небольшое сообщество.</li>
-                <li>Получите приглашение в чат и анонсы ближайших встреч.</li>
+                <li>Следите за анонсами встреч в канале клуба.</li>
               </ol>
               <div className="hero-actions">
                 <a
-                  href="https://t.me/raki_club_msk"
+                  href="https://t.me/raki_club_chat"
                   className="btn"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Написать в Telegram
+                  💬 Вступить в чат
                 </a>
-                <a href="#kontakty" className="btn btn-ghost">
-                  Другие контакты
+                <a
+                  href="https://t.me/raki_club_msk"
+                  className="btn btn-ghost"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  📢 Наш канал
                 </a>
               </div>
             </div>
@@ -348,7 +353,17 @@ export default function Home() {
             </div>
             <ul className="contact-list">
               <li>
-                <span>Telegram</span>
+                <span>Telegram-чат</span>
+                <a
+                  href="https://t.me/raki_club_chat"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  @raki_club_chat
+                </a>
+              </li>
+              <li>
+                <span>Telegram-канал</span>
                 <a
                   href="https://t.me/raki_club_msk"
                   target="_blank"
