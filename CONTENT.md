@@ -48,6 +48,17 @@
 
 ---
 
+## 🤖 Telegram-канал и автопостинг
+
+| Файл | Что внутри |
+|---|---|
+| [`TELEGRAM_SETUP.md`](TELEGRAM_SETUP.md) | План: создать канал, бота, настроить автопубликацию |
+| [`telegram/queue.json`](telegram/queue.json) | Очередь из 16 постов по датам (текст, картинки, опросы) |
+| [`telegram/publish.py`](telegram/publish.py) | Скрипт публикации через Bot API (stdlib) |
+| [`telegram/README.md`](telegram/README.md) | Как пользоваться и добавлять посты |
+
+---
+
 ## 🥃 Подготовка к встрече
 
 | Файл | Что внутри |
