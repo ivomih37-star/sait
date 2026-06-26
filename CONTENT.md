@@ -52,6 +52,7 @@
 | Файл | Что внутри |
 |---|---|
 | [`TASTING_BUDGET.md`](TASTING_BUDGET.md) | Смета и закупочный список (на 8 чел.), масштабирование, чек-лист |
+| [`RECIPES.md`](RECIPES.md) | Рецепты мезе: шопский салат, сыры, лютеница, нарезка + тайминг |
 | [`tasting-card/`](tasting-card/) | Печатный бланк карты дегустации (PDF + исходник HTML) |
 | [`tasting-card/tasting-card.pdf`](tasting-card/tasting-card.pdf) | Готовый файл для печати по числу гостей |
 | [`tasting-card/README.md`](tasting-card/README.md) | Как править и пересобрать карту |
