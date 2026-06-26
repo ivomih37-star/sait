@@ -1,0 +1,15 @@
+[Unit]
+Description=Raki Club Telegram dialog bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/raki-bot
+EnvironmentFile=/opt/raki-bot/.env
+ExecStart=/opt/raki-bot/venv/bin/python bot.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

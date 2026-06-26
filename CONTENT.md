@@ -56,6 +56,9 @@
 | [`telegram/queue.json`](telegram/queue.json) | Очередь из 16 постов по датам (текст, картинки, опросы) |
 | [`telegram/publish.py`](telegram/publish.py) | Скрипт публикации через Bot API (stdlib) |
 | [`telegram/README.md`](telegram/README.md) | Как пользоваться и добавлять посты |
+| [`telegram/BOT_SETUP.md`](telegram/BOT_SETUP.md) | Создание бота-постера и привязка к проекту |
+| [`telegram/DIALOG_BOT.md`](telegram/DIALOG_BOT.md) | План диалогового бота для чата клуба |
+| [`telegram/bot/`](telegram/bot/) | Рабочий код диалогового бота (команды + приветствие, Docker/systemd) |
 
 ---
 
