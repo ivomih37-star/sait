@@ -277,7 +277,7 @@ export default function Home() {
               </ol>
               <div className="hero-actions">
                 <a
-                  href="https://t.me/"
+                  href="https://t.me/raki_club_msk"
                   className="btn"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -350,7 +350,7 @@ export default function Home() {
               <li>
                 <span>Telegram</span>
                 <a
-                  href="https://t.me/"
+                  href="https://t.me/raki_club_msk"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
