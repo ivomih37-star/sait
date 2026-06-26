@@ -17,11 +17,17 @@ Railway собирает и запускает бота прямо из этог
 2. @BotFather → `/mybots` → `@raki_club_helper_bot` → **Bot Settings → Group
    Privacy → Turn off**.
 
-## Шаг 2. Создать проект на Railway
-1. Зайди на **railway.app** → **Login with GitHub**.
-2. **New Project → Deploy from GitHub repo** → выбери репозиторий
-   **ivomih37-star/sait** (при необходимости дай Railway доступ к репозиторию).
-3. Railway создаст сервис и попробует собрать — пока не важно, поправим в шаге 3.
+## Шаг 2. Создать проект на Railway — в один клик
+
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new/github/ivomih37-star/sait)
+
+1. Нажми кнопку выше → войди через **GitHub** (при первом разе дай Railway
+   доступ к репозиторию `ivomih37-star/sait`).
+2. Railway откроется с уже выбранным репозиторием → подтверди создание проекта.
+3. Сервис создастся и попробует собраться — поправим в шаге 3.
+
+> Если кнопка не сработала: **railway.app → New Project → Deploy from GitHub
+> repo → ivomih37-star/sait**.
 
 ## Шаг 3. Указать папку бота
 1. Открой сервис → **Settings**.
