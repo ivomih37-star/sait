@@ -8,7 +8,12 @@
 import logging
 import os
 
-from telegram import Update, BotCommand
+from telegram import (
+    Update,
+    BotCommand,
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+)
 from telegram.constants import ParseMode
 from telegram.ext import (
     Application,
@@ -31,6 +36,7 @@ log = logging.getLogger("raki-bot")
 
 TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 ADMIN_ID = int(os.environ.get("TELEGRAM_ADMIN_ID", "1528705718"))
+BOT_USERNAME = os.environ.get("BOT_USERNAME", "raki_club_helper_bot")
 
 # состояния диалогов
 ZAP_NAME, ZAP_COUNT = range(2)
@@ -47,6 +53,26 @@ def is_admin(update: Update) -> bool:
 async def start(update, _ctx):
     await update.effective_message.reply_text(
         texts.ABOUT, parse_mode=ParseMode.HTML, disable_web_page_preview=True
+    )
+
+
+async def start_entry(update, ctx):
+    """Вход в личке: /start zapis (по deep-link из чата) сразу начинает запись,
+    обычный /start — показывает «о клубе»."""
+    if ctx.args and ctx.args[0] == "zapis":
+        return await zapis_start(update, ctx)
+    await start(update, ctx)
+    return ConversationHandler.END
+
+
+async def zapis_group(update, _ctx):
+    """В группе запись недоступна — даём кнопку перейти в личку."""
+    kb = InlineKeyboardMarkup([[InlineKeyboardButton(
+        "✍️ Записаться в личке",
+        url=f"https://t.me/{BOT_USERNAME}?start=zapis")]])
+    await update.message.reply_text(
+        "Запись — в личке бота, чтобы не засорять чат. Жми кнопку 👇",
+        reply_markup=kb,
     )
 
 
@@ -285,7 +311,10 @@ def main():
 
     # диалог записи (в личке)
     zap_conv = ConversationHandler(
-        entry_points=[CommandHandler("zapis", zapis_start, filters=PRIVATE)],
+        entry_points=[
+            CommandHandler("zapis", zapis_start, filters=PRIVATE),
+            CommandHandler("start", start_entry, filters=PRIVATE),
+        ],
         states={
             ZAP_NAME: [MessageHandler(PRIVATE & filters.TEXT & ~filters.COMMAND, zapis_name)],
             ZAP_COUNT: [MessageHandler(PRIVATE & filters.TEXT & ~filters.COMMAND, zapis_count)],
@@ -305,7 +334,10 @@ def main():
     app.add_handler(zap_conv)
     app.add_handler(ev_conv)
 
-    app.add_handler(CommandHandler("start", start))
+    # /zapis в группе — кнопка перехода в личку
+    app.add_handler(CommandHandler("zapis", zapis_group, filters=~PRIVATE))
+    # /start в группе (в личке его берёт ConversationHandler выше)
+    app.add_handler(CommandHandler("start", start, filters=~PRIVATE))
     app.add_handler(CommandHandler("rules", rules))
     app.add_handler(CommandHandler("schedule", schedule))
     app.add_handler(CommandHandler("join", join))
