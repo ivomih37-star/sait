@@ -356,7 +356,8 @@ def main():
     app.add_handler(MessageHandler(filters.COMMAND & PRIVATE, unknown))
     app.add_error_handler(on_error)
 
-    log.info("Бот запущен (long-polling).")
+    log.info("Бот запущен (long-polling). Хранилище: %s | админ: %s",
+             storage.DATA_FILE, ADMIN_ID)
     app.run_polling(allowed_updates=Update.ALL_TYPES)
 
 
