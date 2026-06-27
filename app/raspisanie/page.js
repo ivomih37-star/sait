@@ -117,12 +117,33 @@ export default function Schedule() {
                     <div className="schedule-body">
                       <div className="schedule-head">
                         <h3>{m.title}</h3>
-                        <span className={`schedule-status ${st.cls}`}>
-                          {st.label}
-                        </span>
+                        {m.status === "open" ? (
+                          <a
+                            href="https://t.me/raki_club_chat"
+                            className={`schedule-status ${st.cls}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {st.label} →
+                          </a>
+                        ) : (
+                          <span className={`schedule-status ${st.cls}`}>
+                            {st.label}
+                          </span>
+                        )}
                       </div>
                       <p>{m.text}</p>
                       <p className="schedule-place">📍 {m.place}</p>
+                      {m.status === "open" && (
+                        <a
+                          href="https://t.me/raki_club_chat"
+                          className="btn btn-sm"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          💬 Записаться
+                        </a>
+                      )}
                     </div>
                   </article>
                 );
