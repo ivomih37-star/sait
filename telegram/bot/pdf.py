@@ -23,14 +23,14 @@ MUTED = (107, 100, 92)
 
 class ClubPDF(FPDF):
     def header(self):
-        # триколор-полоска сверху
+        # триколор болгарского флага: белый · зелёный · красный
         w = self.w
         self.set_fill_color(255, 255, 255)
-        self.rect(0, 0, w, 4, "F")
+        self.rect(0, 0, w, 4, "F")  # левая треть — белая
         self.set_fill_color(*GREEN)
-        self.rect(0, 0, w / 3, 4, "F")
+        self.rect(w / 3, 0, w / 3, 4, "F")  # середина — зелёная
         self.set_fill_color(*RED)
-        self.rect(2 * w / 3, 0, w / 3, 4, "F")
+        self.rect(2 * w / 3, 0, w / 3, 4, "F")  # правая — красная
 
     def footer(self):
         self.set_y(-14)

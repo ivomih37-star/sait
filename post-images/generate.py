@@ -43,7 +43,7 @@ html,body { width:1080px; height:1080px; font-family:'DejaVu Sans',Arial,sans-se
 .card { width:1080px; height:1080px; position:relative;
   background:linear-gradient(160deg,#faf6ef 0%,#f1ead9 100%);
   display:flex; flex-direction:column; overflow:hidden; }
-.top { height:18px; background:linear-gradient(90deg,#00966e 0 33%,#fff 33% 66%,#d62612 66% 100%); }
+.top { height:18px; background:linear-gradient(90deg,#fff 0 33%,#00966e 33% 66%,#d62612 66% 100%); }
 .body { flex:1; display:flex; flex-direction:column; align-items:center;
   justify-content:center; text-align:center; padding:0 90px; }
 .badge { width:300px; height:300px; border-radius:50%;
