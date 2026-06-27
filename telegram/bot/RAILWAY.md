@@ -35,11 +35,23 @@ Railway собирает и запускает бота прямо из этог
    (Так Railway возьмёт `requirements.txt`, `Procfile` и `.python-version`
    именно из папки бота.)
 
-## Шаг 4. Добавить токен
-1. Вкладка **Variables → New Variable**.
-2. **Name:** `TELEGRAM_BOT_TOKEN`
-   **Value:** токен helper-бота от BotFather.
-3. Сохрани — Railway автоматически передеплоит.
+## Шаг 4. Добавить переменные
+Вкладка **Variables → New Variable**, создать:
+1. **`TELEGRAM_BOT_TOKEN`** = токен helper-бота от BotFather.
+2. **`TELEGRAM_ADMIN_ID`** = твой Telegram ID (узнать у `@userinfobot`) — для
+   команд организатора (/spisok, /pdf) и уведомлений о заявках.
+3. **`DATA_DIR`** = `/data` — папка для хранения заявок (см. шаг 4б).
+
+## Шаг 4б. Подключить Volume (чтобы заявки не пропадали)
+Файловая система Railway эфемерна — без диска заявки сотрутся при передеплое.
+1. Сервис → **Settings → Volumes → New Volume** (или иконка диска на канвасе).
+2. **Mount path:** `/data` (совпадает с `DATA_DIR`).
+3. Сохрани — Railway передеплоит. Теперь заявки переживают перезапуски.
+
+## Команды бота
+- Гость (в личке): `/zapis` — записаться (имя + кол-во).
+- Организатор (в личке, только твой ID): `/newevent`, `/spisok`, `/pdf`,
+  `/open`, `/close`, `/oplata @user текст`, `/snyat @user`, `/admin` — помощь.
 
 ## Шаг 5. Проверить
 1. Вкладка **Deployments → View logs**.
