@@ -2,7 +2,7 @@
 //  Сид БД — демо-данные РакияКлуб.рф
 //  Запуск: npm run db:seed  (после prisma migrate)
 // ===========================================================================
-const { PrismaClient } = require("@prisma/client");
+import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {

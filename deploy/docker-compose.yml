@@ -1,0 +1,52 @@
+# ===========================================================================
+#  Docker Compose — РакияКлуб на Beget Ubuntu VPS
+#  Сервисы: PostgreSQL + Next.js + Telegram-бот.
+#  Запуск:  docker compose -f deploy/docker-compose.yml up -d --build
+# ===========================================================================
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-raki}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-rakipass}
+      POSTGRES_DB: ${POSTGRES_DB:-rakiaclub}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-raki}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    restart: unless-stopped
+    env_file: ../.env
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-raki}:${POSTGRES_PASSWORD:-rakipass}@db:5432/${POSTGRES_DB:-rakiaclub}?schema=public
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:3000:3000"
+    # Применяем миграции перед стартом веб-сервера
+    command: sh -c "npx prisma migrate deploy && node server.js"
+
+  bot:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    restart: unless-stopped
+    env_file: ../.env
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-raki}:${POSTGRES_PASSWORD:-rakipass}@db:5432/${POSTGRES_DB:-rakiaclub}?schema=public
+    depends_on:
+      db:
+        condition: service_healthy
+    command: node bot/index.js
+
+volumes:
+  pgdata:

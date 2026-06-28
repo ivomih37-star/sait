@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Star, Droplets } from "lucide-react";
+import { ArrowLeft, Star } from "lucide-react";
 import SiteHeader from "@/components/ui/SiteHeader";
 import SiteFooter from "@/components/ui/SiteFooter";
 import FlavourRadar from "@/components/charts/FlavourRadar";
+import GastroPairing from "@/components/pairing/GastroPairing";
 import { getProduct, averageProfile, products, KIND_LABELS } from "@/lib/demo-data";
 
 export function generateStaticParams() {
@@ -65,33 +66,9 @@ export default function ProductPage({ params }) {
               </Link>
             </div>
 
-            {/* AI-гастропейринг */}
+            {/* AI-гастропейринг (интерактивный виджет) */}
             <div className="mt-10">
-              <p className="eyebrow mb-3 flex items-center gap-2">
-                <Droplets size={14} /> Гастропейринг
-              </p>
-              <div className="space-y-3">
-                {product.pairings.map((pair) => (
-                  <div
-                    key={pair.dish}
-                    className="flex items-center gap-4 rounded-2xl border border-ink-border bg-ink-soft/50 p-4"
-                  >
-                    <span className="text-2xl">{pair.emoji}</span>
-                    <span className="flex-1 text-cream/85">{pair.dish}</span>
-                    <div className="flex items-center gap-2">
-                      <div className="h-1.5 w-24 overflow-hidden rounded-full bg-ink-border">
-                        <div
-                          className="h-full rounded-full bg-gold-gradient"
-                          style={{ width: `${pair.score}%` }}
-                        />
-                      </div>
-                      <span className="w-9 text-right text-sm font-medium text-gold">
-                        {pair.score}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <GastroPairing pairings={product.pairings} productName={product.name} />
             </div>
           </div>
 

@@ -2,6 +2,7 @@
   "name": "raki-club-moscow",
   "version": "0.2.0",
   "private": true,
+  "type": "module",
   "description": "РакияКлуб.рф — премиальная цифровая экосистема Клуба любителей болгарской ракии",
   "scripts": {
     "dev": "next dev",
