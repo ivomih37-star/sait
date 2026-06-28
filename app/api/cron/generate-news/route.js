@@ -12,6 +12,7 @@ export async function POST(req) {
   }
   try {
     const news = await runNewsCycle();
+    if (!news) return Response.json({ ok: true, skipped: true, reason: "no_new_items" });
     return Response.json({ ok: true, id: news.id, status: news.status });
   } catch (e) {
     return Response.json({ ok: false, error: e.message }, { status: 500 });
