@@ -1,0 +1,376 @@
+// ===========================================================================
+//  РакияКлуб.рф — Prisma schema
+//  Премиальная экосистема Клуба любителей болгарской ракии
+//  Поддерживает: каталог продуктов и вкусовые профили (spider charts),
+//  события/дегустации с выбором мест, Telegram Mini App регистрации,
+//  B2B-портал HoReCa, phygital QR-оценки и AI-очередь контента.
+// ===========================================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  // На проде — PostgreSQL (Beget VPS). Для смены на MySQL поменять provider.
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+//  ПОЛЬЗОВАТЕЛИ И ДОСТУП
+// ---------------------------------------------------------------------------
+
+enum Role {
+  GUEST // анонимный QR-гость (без аккаунта)
+  USER // обычный участник клуба (через Telegram)
+  B2B // представитель HoReCa / магазина
+  ADMIN // администратор / контент-модератор
+}
+
+model User {
+  id         String   @id @default(cuid())
+  // Идентификация: Telegram (TMA) ИЛИ email (B2B magic-link)
+  telegramId BigInt?  @unique
+  username   String? // @username из Telegram
+  email      String?  @unique
+  name       String?
+  avatarUrl  String?
+  role       Role     @default(USER)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  b2bProfile    B2bProfile?
+  registrations Registration[]
+  ratings       Rating[]
+  magicLinks    MagicLink[]
+
+  @@index([role])
+}
+
+// Magic-link / одноразовый токен для B2B-входа без пароля
+model MagicLink {
+  id        String    @id @default(cuid())
+  token     String    @unique
+  email     String
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+  userId String?
+
+  @@index([email])
+}
+
+enum B2bType {
+  RESTAURANT
+  BAR
+  WINE_SHOP
+  DISTRIBUTOR
+}
+
+enum B2bStatus {
+  PENDING
+  APPROVED
+  SUSPENDED
+}
+
+// Бизнес-профиль для доступа к оптовым ценам и аллокациям
+model B2bProfile {
+  id        String    @id @default(cuid())
+  company   String
+  type      B2bType
+  inn       String? // ИНН / рег. номер
+  city      String?
+  phone     String?
+  contact   String? // контактное лицо
+  status    B2bStatus @default(PENDING)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @unique
+
+  allocationRequests AllocationRequest[]
+
+  @@index([status])
+}
+
+// ---------------------------------------------------------------------------
+//  ПРОИЗВОДИТЕЛИ И ПРОДУКТЫ
+// ---------------------------------------------------------------------------
+
+model Producer {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  region      String? // регион Болгарии (Тракия, Дунавска равнина и т.д.)
+  description String?  @db.Text
+  foundedYear Int?
+  logoUrl     String?
+  websiteUrl  String?
+  createdAt   DateTime @default(now())
+
+  products Product[]
+}
+
+enum RakiaKind {
+  GROZDOVA // виноградная
+  SLIVOVA // сливовая
+  KAYSIEVA // абрикосовая
+  VISHNEVA // вишнёвая
+  DYULEVA // айвовая
+  MUSKATOVA // мускатная
+  SMESENA // купажная / прочая
+}
+
+model Product {
+  id            String    @id @default(cuid())
+  slug          String    @unique
+  name          String
+  kind          RakiaKind
+  description   String?   @db.Text
+  story         String?   @db.Text // история бренда / лимитированной серии
+  abv           Float // крепость, % об.
+  volumeMl      Int       @default(700)
+  imageUrl      String?
+  year          Int? // год урожая / партии
+  // Цены: розница видна всем, опт — только B2B-слою
+  priceRetail   Int? // ₽ розница
+  priceWholesale Int? // ₽ опт (скрытая B2B-цена)
+  isLimited     Boolean   @default(false) // редкая / лимитированная серия
+  stock         Int       @default(0) // доступная аллокация
+  isPublished   Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  producer   Producer @relation(fields: [producerId], references: [id], onDelete: Cascade)
+  producerId String
+
+  tasteProfile       TasteProfile?
+  ratings            Rating[]
+  pairings           Pairing[]
+  allocationRequests AllocationRequest[]
+
+  @@index([kind])
+  @@index([isLimited])
+}
+
+// Вкусовой профиль для интерактивного Radar / Spider Chart.
+// Оси 0–10: Intensity, Tannins, Fruitiness, Freshness, Wood Notes, Sweetness.
+model TasteProfile {
+  id         String @id @default(cuid())
+  intensity  Int    @default(5) // Интенсивность
+  tannins    Int    @default(5) // Танины
+  fruitiness Int    @default(5) // Фруктовость
+  freshness  Int    @default(5) // Свежесть
+  woodNotes  Int    @default(5) // Древесные ноты
+  sweetness  Int    @default(5) // Сладость
+
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId String  @unique
+}
+
+// AI-гастропейринг: рекомендованные сочетания продукта с блюдами
+model Pairing {
+  id          String   @id @default(cuid())
+  dish        String // блюдо (модерн-балканская / фьюжн кухня)
+  description String?  @db.Text
+  emoji       String?
+  score       Int      @default(80) // сила сочетания 0–100 для анимации
+  createdAt   DateTime @default(now())
+
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId String
+
+  @@index([productId])
+}
+
+// ---------------------------------------------------------------------------
+//  СОБЫТИЯ / ДЕГУСТАЦИИ (Telegram Mini App)
+// ---------------------------------------------------------------------------
+
+enum EventStatus {
+  DRAFT
+  OPEN // открыта запись
+  SOLD_OUT
+  CLOSED
+  CANCELLED
+}
+
+model Event {
+  id          String      @id @default(cuid())
+  slug        String      @unique
+  title       String
+  description String?     @db.Text
+  startsAt    DateTime
+  endsAt      DateTime?
+  venue       String?
+  address     String?
+  coverUrl    String?
+  capacity    Int         @default(0)
+  priceRub    Int         @default(0)
+  status      EventStatus @default(DRAFT)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  tables        EventTable[]
+  registrations Registration[]
+
+  @@index([status, startsAt])
+}
+
+// Стол на дегустации — для интерактивного выбора места в TMA
+model EventTable {
+  id       String @id @default(cuid())
+  label    String // «Стол 1», «Барная стойка»
+  capacity Int    @default(6)
+
+  event   Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  eventId String
+
+  seats Seat[]
+
+  @@index([eventId])
+}
+
+enum SeatStatus {
+  FREE
+  HELD // временно удержано в процессе оформления
+  TAKEN
+}
+
+model Seat {
+  id     String     @id @default(cuid())
+  number Int
+  status SeatStatus @default(FREE)
+
+  table   EventTable @relation(fields: [tableId], references: [id], onDelete: Cascade)
+  tableId String
+
+  registration Registration?
+
+  @@unique([tableId, number])
+}
+
+enum RegistrationStatus {
+  PENDING
+  CONFIRMED
+  CHECKED_IN
+  CANCELLED
+}
+
+model Registration {
+  id         String             @id @default(cuid())
+  status     RegistrationStatus @default(PENDING)
+  guests     Int                @default(1)
+  ticketCode String             @unique // публичный код билета (на QR)
+  qrToken    String             @unique // подписанный токен для верификации
+  checkedIn  Boolean            @default(false)
+  createdAt  DateTime           @default(now())
+  updatedAt  DateTime           @updatedAt
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  event   Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  eventId String
+
+  seat   Seat?   @relation(fields: [seatId], references: [id], onDelete: SetNull)
+  seatId String? @unique
+
+  @@unique([userId, eventId])
+  @@index([eventId, status])
+}
+
+// ---------------------------------------------------------------------------
+//  PHYGITAL QR-ОЦЕНКИ
+// ---------------------------------------------------------------------------
+
+model Rating {
+  id        String   @id @default(cuid())
+  score     Int // 1–5
+  notes     String?  @db.Text
+  sessionId String? // анонимная сессия гостя (без аккаунта)
+  source    String?  @default("qr") // qr | web | tma
+  createdAt DateTime @default(now())
+
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId String
+
+  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+  userId String?
+
+  @@index([productId, createdAt])
+}
+
+// ---------------------------------------------------------------------------
+//  B2B: ЗАЯВКИ НА АЛЛОКАЦИЮ РЕДКИХ СЕРИЙ
+// ---------------------------------------------------------------------------
+
+enum AllocationStatus {
+  PENDING
+  APPROVED
+  DECLINED
+  FULFILLED
+}
+
+model AllocationRequest {
+  id        String           @id @default(cuid())
+  quantity  Int
+  note      String?          @db.Text
+  status    AllocationStatus @default(PENDING)
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+
+  b2bProfile   B2bProfile @relation(fields: [b2bProfileId], references: [id], onDelete: Cascade)
+  b2bProfileId String
+
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId String
+
+  @@index([status])
+}
+
+// ---------------------------------------------------------------------------
+//  AI-АВТОМАТИЗАЦИЯ КОНТЕНТА + WORKFLOW АПРУВА
+// ---------------------------------------------------------------------------
+
+enum NewsStatus {
+  DRAFT // только что собрано воркером
+  PENDING // ждёт решения админа в Telegram
+  APPROVED // одобрено, в очереди на публикацию
+  REJECTED
+  PUBLISHED
+  FAILED // ошибка при публикации в каналы
+}
+
+model NewsQueue {
+  id             String     @id @default(cuid())
+  sourceUrl      String?
+  sourceTitle    String?
+  rawSummary     String?    @db.Text // исходная выжимка рыночного апдейта
+  // Две сгенерированные вариации контента:
+  contentFormal  String?    @db.Text // аналитический — Web + Facebook
+  contentInformal String?   @db.Text // живой с эмодзи — Telegram
+  imageUrl       String?
+  status         NewsStatus @default(DRAFT)
+
+  // Привязка к сообщению админ-бота с inline-кнопками
+  adminChatId    BigInt?
+  adminMessageId BigInt?
+
+  // Куда опубликовано (web/telegram/facebook) и внешние id
+  publishedWeb      Boolean @default(false)
+  publishedTelegram Boolean @default(false)
+  publishedFacebook Boolean @default(false)
+  telegramPostId    String?
+  facebookPostId    String?
+  failReason        String? @db.Text
+
+  createdAt   DateTime  @default(now())
+  reviewedAt  DateTime?
+  publishedAt DateTime?
+
+  @@index([status, createdAt])
+}
