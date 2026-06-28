@@ -1,12 +1,12 @@
 "use client";
 
-import { use, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Star, Wine, Check } from "lucide-react";
 
 // Phygital: гость сканирует QR на бутылке/столе → оценивает вкус и оставляет отзыв.
 export default function QrRatePage({ params }) {
-  const { productId } = use(params);
+  const { productId } = params;
   const [score, setScore] = useState(0);
   const [hover, setHover] = useState(0);
   const [notes, setNotes] = useState("");
