@@ -1,18 +1,27 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Star, Wine, Check } from "lucide-react";
 
 // Phygital: гость сканирует QR на бутылке/столе → оценивает вкус и оставляет отзыв.
 export default function QrRatePage({ params }) {
   const { productId } = params;
+  const [product, setProduct] = useState(null);
   const [score, setScore] = useState(0);
   const [hover, setHover] = useState(0);
   const [notes, setNotes] = useState("");
   const [done, setDone] = useState(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState(null);
+
+  // Подтягиваем название продукта (по id или slug)
+  useEffect(() => {
+    fetch(`/api/products/${productId}`)
+      .then((x) => x.json())
+      .then((r) => r.ok && setProduct(r.product))
+      .catch(() => {});
+  }, [productId]);
 
   // Анонимная сессия гостя
   function sessionId() {
@@ -63,8 +72,14 @@ export default function QrRatePage({ params }) {
           </motion.div>
         ) : (
           <>
-            <h1 className="mt-4 font-display text-2xl font-semibold text-cream">Оцените ракию</h1>
-            <p className="mt-1 text-sm text-cream/50">Ваше мнение — часть дегустации</p>
+            <h1 className="mt-4 font-display text-2xl font-semibold text-cream">
+              {product ? product.name : "Оцените ракию"}
+            </h1>
+            <p className="mt-1 text-sm text-cream/50">
+              {product
+                ? `${product.producer?.name || ""}${product.ratingCount ? ` · ★ ${product.ratingAvg} (${product.ratingCount})` : ""}`
+                : "Ваше мнение — часть дегустации"}
+            </p>
 
             <div className="mt-6 flex justify-center gap-1">
               {[1, 2, 3, 4, 5].map((n) => (
