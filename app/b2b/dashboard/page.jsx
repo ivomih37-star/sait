@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Building2, Download, Package, FileText, LogOut } from "lucide-react";
-import { products, KIND_LABELS } from "@/lib/demo-data";
+import { KIND_LABELS } from "@/lib/constants";
 
 // Бренд-киты и техлисты (на проде — реальные файлы из download-центра).
 const BRAND_KITS = [
@@ -12,19 +12,27 @@ const BRAND_KITS = [
   { name: "Фото бутылок в высоком разрешении", icon: Download, href: "#" },
 ];
 
-// Опт-цена для демо ≈ 65% от розницы (на проде — поле priceWholesale из БД).
-const wholesale = (retail) => Math.round((retail * 0.65) / 10) * 10;
+// Фолбэк, если у продукта не задана опт-цена.
+const fallbackWholesale = (retail) => Math.round((retail * 0.65) / 10) * 10;
 
 export default function B2bDashboard() {
   const router = useRouter();
   const [session, setSession] = useState(null);
+  const [products, setProducts] = useState([]);
   const [qty, setQty] = useState({});
   const [sent, setSent] = useState({});
 
   useEffect(() => {
     const s = localStorage.getItem("raki_b2b_session");
-    if (!s) router.replace("/b2b/login");
-    else setSession(s);
+    if (!s) {
+      router.replace("/b2b/login");
+      return;
+    }
+    setSession(s);
+    fetch("/api/products")
+      .then((x) => x.json())
+      .then((r) => r.ok && setProducts(r.products))
+      .catch(() => {});
   }, [router]);
 
   async function requestAllocation(productId) {
@@ -92,9 +100,9 @@ export default function B2bDashboard() {
             </thead>
             <tbody>
               {products.map((p) => {
-                const fakeId = p.slug; // в проде — p.id
+                const opt = p.priceWholesale || fallbackWholesale(p.priceRetail);
                 return (
-                  <tr key={p.slug} className="border-t border-ink-border/60">
+                  <tr key={p.id} className="border-t border-ink-border/60">
                     <td className="px-4 py-3">
                       <div className="font-medium text-cream">{p.name}</div>
                       <div className="text-xs text-cream/40">
@@ -103,13 +111,13 @@ export default function B2bDashboard() {
                       </div>
                     </td>
                     <td className="px-4 py-3 text-cream/60">
-                      {p.priceRetail.toLocaleString("ru-RU")} ₽
+                      {p.priceRetail?.toLocaleString("ru-RU")} ₽
                     </td>
                     <td className="px-4 py-3 font-semibold text-gold">
-                      {wholesale(p.priceRetail).toLocaleString("ru-RU")} ₽
+                      {opt.toLocaleString("ru-RU")} ₽
                     </td>
                     <td className="px-4 py-3">
-                      {sent[fakeId] === "ok" ? (
+                      {sent[p.id] === "ok" ? (
                         <span className="text-xs text-gold">Заявка принята</span>
                       ) : (
                         <div className="flex items-center gap-2">
@@ -117,21 +125,21 @@ export default function B2bDashboard() {
                             type="number"
                             min={1}
                             placeholder="шт"
-                            value={qty[fakeId] || ""}
-                            onChange={(e) => setQty((q) => ({ ...q, [fakeId]: e.target.value }))}
+                            value={qty[p.id] || ""}
+                            onChange={(e) => setQty((q) => ({ ...q, [p.id]: e.target.value }))}
                             className="w-16 rounded-lg border border-ink-border bg-ink-soft/60 px-2 py-1.5 text-cream outline-none focus:border-gold/50"
                           />
                           <button
-                            onClick={() => requestAllocation(fakeId)}
+                            onClick={() => requestAllocation(p.id)}
                             className="rounded-lg bg-gold/15 px-3 py-1.5 text-xs font-medium text-gold hover:bg-gold/25"
                           >
                             <Package size={13} className="mr-1 inline" /> Запросить
                           </button>
                         </div>
                       )}
-                      {sent[fakeId] && sent[fakeId] !== "ok" && (
+                      {sent[p.id] && sent[p.id] !== "ok" && (
                         <span className="block text-xs text-red">
-                          {sent[fakeId] === "profile_not_approved"
+                          {sent[p.id] === "profile_not_approved"
                             ? "Профиль на модерации"
                             : "Ошибка"}
                         </span>

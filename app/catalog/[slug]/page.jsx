@@ -5,22 +5,21 @@ import SiteHeader from "@/components/ui/SiteHeader";
 import SiteFooter from "@/components/ui/SiteFooter";
 import FlavourRadar from "@/components/charts/FlavourRadar";
 import GastroPairing from "@/components/pairing/GastroPairing";
-import { getProduct, averageProfile, products, KIND_LABELS } from "@/lib/demo-data";
+import { getProduct, averageProfile } from "@/lib/catalog";
+import { KIND_LABELS } from "@/lib/constants";
 
-export function generateStaticParams() {
-  return products.map((p) => ({ slug: p.slug }));
-}
+export const dynamic = "force-dynamic";
 
-export function generateMetadata({ params }) {
-  const product = getProduct(params.slug);
+export async function generateMetadata({ params }) {
+  const product = await getProduct(params.slug);
   return { title: product ? product.name : "Каталог" };
 }
 
-export default function ProductPage({ params }) {
-  const product = getProduct(params.slug);
+export default async function ProductPage({ params }) {
+  const product = await getProduct(params.slug);
   if (!product) notFound();
 
-  const baseline = averageProfile();
+  const baseline = await averageProfile();
 
   return (
     <>
@@ -51,7 +50,7 @@ export default function ProductPage({ params }) {
               {product.name}
             </h1>
             <p className="mt-2 text-sm text-cream/50">
-              {product.producer} · {product.region} · {product.year}
+              {[product.producer, product.region, product.year].filter(Boolean).join(" · ")}
             </p>
             <p className="mt-5 text-lg leading-relaxed text-cream/70">
               {product.description}
@@ -59,7 +58,7 @@ export default function ProductPage({ params }) {
 
             <div className="mt-6 flex items-center gap-4">
               <span className="text-3xl font-semibold text-gold">
-                {product.priceRetail.toLocaleString("ru-RU")} ₽
+                {product.priceRetail?.toLocaleString("ru-RU")} ₽
               </span>
               <Link href="/tma" className="btn-gold">
                 Попробовать на дегустации
@@ -74,7 +73,11 @@ export default function ProductPage({ params }) {
 
           {/* Правая колонка — интерактивный Radar / Flavour Matrix */}
           <div className="lg:sticky lg:top-24 lg:self-start">
-            <FlavourRadar profile={product.profile} baseline={baseline} name={product.name} />
+            <FlavourRadar
+              profile={product.profile || {}}
+              baseline={baseline}
+              name={product.name}
+            />
           </div>
         </div>
       </main>

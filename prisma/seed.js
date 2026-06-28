@@ -69,6 +69,25 @@ async function main() {
         { dish: "Свежие абрикосы и мёд", emoji: "🍑", score: 94 },
       ],
     },
+    {
+      slug: "vishneva-noir",
+      name: "Вишнёва Noir",
+      kind: "VISHNEVA",
+      abv: 43,
+      volumeMl: 500,
+      year: 2020,
+      priceRetail: 4800,
+      priceWholesale: 3120,
+      isLimited: true,
+      stock: 18,
+      description:
+        "Лимитированная вишнёвая из горных Родоп. Тёмная вишня, миндаль, лёгкая горчинка косточки.",
+      profile: { intensity: 8, tannins: 6, fruitiness: 8, freshness: 5, woodNotes: 6, sweetness: 6 },
+      pairings: [
+        { dish: "Утиная грудка с вишней", emoji: "🦆", score: 90 },
+        { dish: "Шоколадный фондан", emoji: "🍰", score: 87 },
+      ],
+    },
   ];
 
   for (const p of products) {

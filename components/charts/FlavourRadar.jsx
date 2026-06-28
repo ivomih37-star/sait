@@ -11,7 +11,7 @@ import {
   Tooltip,
 } from "recharts";
 import { motion } from "framer-motion";
-import { FLAVOUR_AXES } from "@/lib/demo-data";
+import { FLAVOUR_AXES } from "@/lib/constants";
 
 /**
  * FlavourRadar — интерактивный spider-chart вкусового профиля ракии.

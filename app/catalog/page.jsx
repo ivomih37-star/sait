@@ -3,11 +3,15 @@ import { Wine, Star } from "lucide-react";
 import SiteHeader from "@/components/ui/SiteHeader";
 import SiteFooter from "@/components/ui/SiteFooter";
 import TiltCard from "@/components/bento/TiltCard";
-import { products, KIND_LABELS } from "@/lib/demo-data";
+import { listProducts } from "@/lib/catalog";
+import { KIND_LABELS } from "@/lib/constants";
 
+export const dynamic = "force-dynamic";
 export const metadata = { title: "Каталог" };
 
-export default function CatalogPage() {
+export default async function CatalogPage() {
+  const products = await listProducts();
+
   return (
     <>
       <SiteHeader />
@@ -19,6 +23,10 @@ export default function CatalogPage() {
         <p className="mt-4 max-w-xl text-cream/60">
           Каждая бутылка — с интерактивной вкусовой матрицей и подбором гастросочетаний.
         </p>
+
+        {products.length === 0 && (
+          <p className="mt-10 text-cream/40">Каталог пока пуст.</p>
+        )}
 
         <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {products.map((p) => (
@@ -48,7 +56,7 @@ export default function CatalogPage() {
 
                 <div className="mt-auto flex items-center justify-between pt-6">
                   <span className="text-lg font-semibold text-gold">
-                    {p.priceRetail.toLocaleString("ru-RU")} ₽
+                    {p.priceRetail?.toLocaleString("ru-RU")} ₽
                   </span>
                   <span className="text-sm text-cream/50">{p.volumeMl} мл</span>
                 </div>
