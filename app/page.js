@@ -374,7 +374,7 @@ export default function Home() {
               </li>
               <li>
                 <span>Почта</span>
-                <a href="mailto:hello@raki-club.ru">hello@raki-club.ru</a>
+                <a href="mailto:im@kvistrade.ru">im@kvistrade.ru</a>
               </li>
               <li>
                 <span>Город</span>
