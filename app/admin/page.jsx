@@ -1,7 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Check, X, Pencil, ShieldCheck, RefreshCw } from "lucide-react";
+import { Check, X, Pencil, ShieldCheck, RefreshCw, ScanLine } from "lucide-react";
 
 const STATUS_LABEL = {
   PENDING: "На модерации",
@@ -105,9 +106,14 @@ export default function AdminPage() {
           <p className="eyebrow">Админ · AI-контент</p>
           <h1 className="mt-1 font-display text-3xl font-semibold text-cream">Очередь публикаций</h1>
         </div>
-        <button onClick={() => load()} className="btn-ghost">
-          <RefreshCw size={15} className={loading ? "animate-spin" : ""} /> Обновить
-        </button>
+        <div className="flex gap-2">
+          <Link href="/admin/scan" className="btn-ghost">
+            <ScanLine size={15} /> Сканер
+          </Link>
+          <button onClick={() => load()} className="btn-ghost">
+            <RefreshCw size={15} className={loading ? "animate-spin" : ""} /> Обновить
+          </button>
+        </div>
       </div>
 
       {items.length === 0 && (

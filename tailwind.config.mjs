@@ -20,6 +20,9 @@ export default {
           deep: "#a9772c",
         },
         cream: "#ede6d6",
+        // Семантические акценты (для состояний: ошибка/успех)
+        red: { DEFAULT: "#d64a3b" },
+        green: { DEFAULT: "#3fae6b" },
       },
       fontFamily: {
         display: ["var(--font-display)", "Playfair Display", "serif"],

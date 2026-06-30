@@ -2,7 +2,9 @@ import Link from "next/link";
 import { CalendarDays, MapPin, Users, ArrowUpRight } from "lucide-react";
 import SiteHeader from "@/components/ui/SiteHeader";
 import SiteFooter from "@/components/ui/SiteFooter";
-import { events } from "@/lib/demo-data";
+import { listUpcomingEvents } from "@/lib/events";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "Дегустации",
@@ -19,7 +21,9 @@ function fmt(iso) {
   };
 }
 
-export default function SchedulePage() {
+export default async function SchedulePage() {
+  const events = await listUpcomingEvents();
+
   return (
     <>
       <SiteHeader />
@@ -34,12 +38,16 @@ export default function SchedulePage() {
           Выбор стола и места, мгновенная запись и цифровой билет с QR — в Telegram Mini App.
         </p>
 
+        {events.length === 0 && (
+          <p className="mt-10 text-cream/40">Ближайших дегустаций пока нет — следите за анонсами.</p>
+        )}
+
         <div className="mt-10 space-y-4">
           {events.map((e) => {
             const t = fmt(e.startsAt);
             return (
               <Link
-                key={e.slug}
+                key={e.id}
                 href="/tma"
                 className="glass-tile group flex flex-col gap-5 p-6 transition-shadow hover:shadow-glow sm:flex-row sm:items-center"
               >
@@ -67,10 +75,10 @@ export default function SchedulePage() {
                       <MapPin size={14} /> {e.venue}
                     </span>
                     <span className="flex items-center gap-1.5">
-                      <Users size={14} /> осталось {e.seatsLeft} мест
+                      <Users size={14} /> осталось {e.seatsFree} мест
                     </span>
                     <span className="font-medium text-gold">
-                      {e.priceRub.toLocaleString("ru-RU")} ₽
+                      {e.priceRub?.toLocaleString("ru-RU")} ₽
                     </span>
                   </div>
                 </div>
