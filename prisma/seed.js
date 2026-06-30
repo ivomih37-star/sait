@@ -105,35 +105,69 @@ async function main() {
     console.log(`  ✓ продукт: ${product.name}`);
   }
 
-  // --- Событие / дегустация со столами и местами ---
-  const event = await prisma.event.upsert({
-    where: { slug: "degustaciya-iyul-2026" },
-    update: {},
-    create: {
+  // --- События / дегустации со столами и местами ---
+  const events = [
+    {
       slug: "degustaciya-iyul-2026",
       title: "Летняя дегустация: фруктовая ракия",
       description: "6 образцов, слепая дегустация, гастропейринг от шефа.",
       startsAt: new Date("2026-07-18T19:00:00+03:00"),
       venue: "Пространство «Амбар»",
       address: "Москва, ул. Примерная, 1",
-      capacity: 18,
       priceRub: 3500,
-      status: "OPEN",
+      tables: 3,
+      seatsPerTable: 6,
     },
-  });
+    {
+      slug: "barrel-night-avgust-2026",
+      title: "Barrel Night: выдержанные серии",
+      description: "Вертикальная дегустация баррель-серий, тёмный шоколад и кашкавал.",
+      startsAt: new Date("2026-08-08T19:30:00+03:00"),
+      venue: "Винотека «Тракия»",
+      address: "Москва, Гончарная наб., 9",
+      priceRub: 4500,
+      tables: 2,
+      seatsPerTable: 7,
+    },
+    {
+      slug: "muscat-evening-sentyabr-2026",
+      title: "Мускатный вечер: ароматные сорта",
+      description: "Кайсиева и мускатные ракии, балканское мезе и живая музыка.",
+      startsAt: new Date("2026-09-12T19:00:00+03:00"),
+      venue: "Терраса «Родопа»",
+      address: "Москва, ул. Примерная, 14",
+      priceRub: 3200,
+      tables: 3,
+      seatsPerTable: 5,
+    },
+  ];
 
-  // 3 стола по 6 мест
-  for (let t = 1; t <= 3; t++) {
-    await prisma.eventTable.create({
-      data: {
-        label: `Стол ${t}`,
-        capacity: 6,
-        eventId: event.id,
-        seats: { create: Array.from({ length: 6 }, (_, i) => ({ number: i + 1 })) },
-      },
+  for (const e of events) {
+    const { tables, seatsPerTable, ...data } = e;
+    const event = await prisma.event.upsert({
+      where: { slug: e.slug },
+      update: {},
+      create: { ...data, capacity: tables * seatsPerTable, status: "OPEN" },
     });
+
+    // Столы/места создаём только если их ещё нет (идемпотентность)
+    const existing = await prisma.eventTable.count({ where: { eventId: event.id } });
+    if (existing === 0) {
+      for (let t = 1; t <= tables; t++) {
+        await prisma.eventTable.create({
+          data: {
+            label: `Стол ${t}`,
+            capacity: seatsPerTable,
+            eventId: event.id,
+            seats: {
+              create: Array.from({ length: seatsPerTable }, (_, i) => ({ number: i + 1 })),
+            },
+          },
+        });
+      }
+    }
+    console.log(`  ✓ событие: ${event.title} (${tables}×${seatsPerTable} мест)`);
   }
-  console.log(`  ✓ событие: ${event.title} (3 стола × 6 мест)`);
 
   console.log("✅ Сидинг завершён.");
 }
