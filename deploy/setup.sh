@@ -22,6 +22,17 @@ if [ ! -f .env ]; then
   exit 1
 fi
 
+# --- Swap для стабильной сборки на машинах с малым ОЗУ (≤ ~2.5 ГБ) ---
+MEM_MB=$(awk '/MemTotal/{print int($2/1024)}' /proc/meminfo)
+if [ "$MEM_MB" -lt 2600 ] && [ ! -e /swapfile ] && [ -z "$(swapon --show)" ]; then
+  echo "→ Мало ОЗУ (${MEM_MB} МБ) — создаю swap 2 ГБ для сборки…"
+  fallocate -l 2G /swapfile 2>/dev/null || dd if=/dev/zero of=/swapfile bs=1M count=2048
+  chmod 600 /swapfile
+  mkswap /swapfile
+  swapon /swapfile
+  grep -q '/swapfile' /etc/fstab || echo '/swapfile none swap sw 0 0' >> /etc/fstab
+fi
+
 # --- Docker ---
 if ! command -v docker >/dev/null 2>&1; then
   echo "→ Устанавливаю Docker…"
