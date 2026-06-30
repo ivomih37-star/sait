@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>КВИС ТРЕЙД — Katarzyna Estate · Black Sea Gold · SIS Industries</title>
+<meta name="description" content="Эксклюзивное представительство болгарских винодельческих домов на российском рынке: Katarzyna Estate, Black Sea Gold, SIS Industries. Премиум-вина и крепкие напитки напрямую от производителя.">
+<meta name="theme-color" content="#4a1320">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/logo/favicon-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:title" content="КВИС ТРЕЙД">
+<meta property="og:description" content="Болгарские винодельческие дома на российском рынке. Katarzyna Estate, Black Sea Gold, SIS Industries.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="/assets/logo/favicon-512.png">
+<meta property="og:locale" content="ru_RU">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Forum&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script>
+  // Сразу прячем сайт, если возраст ещё не подтверждён —
+  // иначе на долю секунды успеет мелькнуть содержимое до показа плашки.
+  try {
+    if (localStorage.getItem('ageConfirmed') !== 'yes') {
+      document.documentElement.classList.add('age-locked');
+    }
+  } catch (e) { document.documentElement.classList.add('age-locked'); }
+</script>
+<style>
+  :root{
+    --wine:#4a1320;
+    --wine-deep:#2e0c15;
+    --terra:#b9542d;
+    --gold:#c8a24a;
+    --gold-soft:#d8bd7e;
+    --cream:#f3e9d8;
+    --cream-deep:#ebddc6;
+    --paper:#f6efe2;
+    --ink:#2a1d17;
+    --ink-soft:#5c4a3e;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Manrope',sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  /* grain overlay */
+  body::after{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.04;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .eyebrow{
+    font-family:'Forum',serif;text-transform:uppercase;letter-spacing:.35em;
+    font-size:.72rem;color:var(--gold);
+  }
+  h1,h2,h3{font-family:'Prata',serif;font-weight:400;line-height:1.08}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:1.6rem 6vw;transition:.4s ease;
+  }
+  nav.scrolled{
+    background:rgba(46,12,21,.92);backdrop-filter:blur(10px);
+    padding:1rem 6vw;box-shadow:0 8px 30px rgba(0,0,0,.25);
+  }
+  .brand{font-family:'Prata',serif;font-size:1.35rem;color:var(--cream);letter-spacing:.02em;
+    display:flex;align-items:center;line-height:0}
+  .brand span{color:var(--gold)}
+  .brand-logo{display:block;height:68px;width:auto;
+    transition:height .3s ease, filter .3s ease;
+    filter:drop-shadow(0 4px 18px rgba(0,0,0,.45))}
+  nav.scrolled .brand-logo{height:54px;
+    filter:drop-shadow(0 2px 8px rgba(0,0,0,.3))}
+  footer .brand-logo{height:110px;filter:none}
+  @media(max-width:860px){
+    .brand-logo{height:52px}
+    nav.scrolled .brand-logo{height:44px}
+    footer .brand-logo{height:80px}
+  }
+  .nav-links{display:flex;gap:2.4rem;align-items:center}
+  .nav-links a{
+    color:var(--cream);text-decoration:none;font-size:.85rem;letter-spacing:.05em;
+    opacity:.85;transition:.3s;font-weight:400;
+  }
+  .nav-links a:hover{opacity:1;color:var(--gold-soft)}
+  .nav-cta{
+    border:1px solid var(--gold);color:var(--gold)!important;
+    padding:.6rem 1.4rem;border-radius:2px;opacity:1!important;
+  }
+  .nav-cta:hover{background:var(--gold);color:var(--wine-deep)!important}
+  @media(max-width:860px){.nav-links a:not(.nav-cta){display:none}}
+
+  /* ---------- HERO (cinematic) ---------- */
+  .hero{
+    position:relative;min-height:100vh;display:flex;align-items:flex-end;
+    background:#1a0810;color:var(--cream);overflow:hidden;isolation:isolate;
+  }
+  /* фон-сцена: дальние горы долины Фракии на закате */
+  .hero-scene{position:absolute;inset:0;z-index:0;overflow:hidden}
+  .hero-sky{
+    position:absolute;inset:0;
+    background:
+      radial-gradient(80% 60% at 70% 25%, #f0c878 0%, rgba(240,200,120,0) 55%),
+      radial-gradient(60% 50% at 30% 15%, #d87a4a 0%, rgba(216,122,74,0) 60%),
+      linear-gradient(180deg, #2a0e1a 0%, #5a1622 35%, #8a2a1d 60%, #b96838 85%, #d99662 100%);
+  }
+  .hero-sun{
+    position:absolute;top:18%;left:62%;width:280px;height:280px;border-radius:50%;
+    background:radial-gradient(circle, #fce4a8 0%, #f3b86a 35%, rgba(243,184,106,0) 70%);
+    filter:blur(2px);opacity:.9;
+  }
+  .hero-mountains-far{
+    position:absolute;bottom:32%;left:0;right:0;height:22%;
+    background:linear-gradient(180deg,#3a1422 0%,#2a0e1a 100%);
+    clip-path:polygon(0 60%,8% 35%,18% 55%,28% 25%,42% 48%,55% 20%,68% 42%,80% 28%,92% 50%,100% 35%,100% 100%,0 100%);
+    opacity:.85;
+  }
+  .hero-mountains-near{
+    position:absolute;bottom:22%;left:0;right:0;height:24%;
+    background:linear-gradient(180deg,#1f0813 0%,#0f0408 100%);
+    clip-path:polygon(0 70%,10% 45%,22% 62%,32% 30%,46% 55%,60% 35%,74% 58%,86% 38%,100% 60%,100% 100%,0 100%);
+  }
+  /* виноградная лоза слева в нижнем углу — силуэт */
+  .hero-vine{
+    position:absolute;left:-30px;bottom:0;width:46%;height:55%;z-index:1;
+    background:linear-gradient(180deg,rgba(20,6,10,0) 30%,#0a0306 100%);
+    opacity:.9;pointer-events:none;
+  }
+  .hero-vine svg{position:absolute;left:0;bottom:0;width:100%;height:100%;
+    color:#0a0306;opacity:.95}
+  /* поле виноградника — ряды передним планом */
+  .hero-rows{
+    position:absolute;left:0;right:0;bottom:0;height:22%;
+    background:
+      repeating-linear-gradient(
+        92deg,
+        rgba(10,3,6,.95) 0px, rgba(10,3,6,.95) 8px,
+        rgba(60,20,28,.9) 8px, rgba(60,20,28,.9) 24px
+      ),
+      linear-gradient(180deg,#3a1018 0%,#0a0306 100%);
+    transform:perspective(600px) rotateX(58deg);transform-origin:bottom;
+    mask-image:linear-gradient(180deg,transparent 0%,#000 30%,#000 100%);
+    -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 30%,#000 100%);
+  }
+  /* виньетка по краям + лёгкий тёмный градиент снизу под текст */
+  .hero-vignette{
+    position:absolute;inset:0;z-index:2;pointer-events:none;
+    background:
+      radial-gradient(120% 80% at 50% 50%, transparent 30%, rgba(10,3,6,.55) 100%),
+      linear-gradient(180deg, rgba(10,3,6,.2) 0%, rgba(10,3,6,0) 25%, rgba(10,3,6,.4) 70%, rgba(10,3,6,.85) 100%);
+  }
+  /* лёгкое колыхание сцены — едва заметное */
+  @keyframes drift{0%,100%{transform:translateX(0)}50%{transform:translateX(-10px)}}
+  .hero-sun{animation:drift 14s ease-in-out infinite}
+
+  .hero-grid{
+    position:relative;z-index:3;display:grid;grid-template-columns:1fr;
+    width:100%;padding:0 6vw 8vh;gap:3rem;align-items:end;max-width:1400px;margin:0 auto;
+  }
+  .hero-text{max-width:920px}
+  .hero-text .eyebrow{
+    color:var(--gold-soft);opacity:0;animation:rise .9s .3s forwards;
+    display:inline-flex;align-items:center;gap:1rem;
+  }
+  .hero-text .eyebrow::before{content:"";width:36px;height:1px;background:var(--gold)}
+  .hero h1{
+    color:var(--cream);font-size:clamp(3rem,8vw,7rem);margin:1.6rem 0 1.8rem;
+    line-height:1;letter-spacing:-.02em;
+    text-shadow:0 4px 30px rgba(0,0,0,.6);
+    opacity:0;animation:rise 1.2s .5s forwards;
+  }
+  .hero h1 em{font-style:italic;color:var(--gold-soft);font-weight:400}
+  .hero p{
+    color:rgba(243,233,216,.88);font-size:clamp(1.05rem,1.4vw,1.25rem);
+    line-height:1.7;max-width:580px;font-weight:300;
+    text-shadow:0 2px 16px rgba(0,0,0,.5);
+    opacity:0;animation:rise 1s .8s forwards;
+  }
+  .hero-actions{margin-top:3rem;display:flex;gap:1.2rem;flex-wrap:wrap;
+    opacity:0;animation:rise 1s 1s forwards;}
+  .btn{
+    font-family:'Manrope';font-size:.92rem;letter-spacing:.04em;font-weight:500;
+    padding:1.05rem 2.4rem;border-radius:2px;cursor:pointer;text-decoration:none;
+    transition:.35s ease;border:1px solid transparent;display:inline-block;
+  }
+  .btn-gold{background:var(--gold);color:var(--wine-deep)}
+  .btn-gold:hover{background:var(--gold-soft);transform:translateY(-2px);box-shadow:0 12px 28px rgba(200,162,74,.3)}
+  .btn-ghost{background:transparent;border-color:rgba(243,233,216,.4);color:var(--cream);font-family:'Manrope',sans-serif}
+  .btn-ghost:hover{border-color:var(--gold);color:var(--gold-soft);background:rgba(200,162,74,.08)}
+
+  /* подсказка-скролл */
+  .hero-scroll{
+    position:absolute;left:50%;bottom:2.4rem;z-index:3;transform:translateX(-50%);
+    color:rgba(243,233,216,.6);font-family:'Forum',serif;text-transform:uppercase;
+    letter-spacing:.3em;font-size:.7rem;text-align:center;
+    opacity:0;animation:rise 1s 1.4s forwards;
+  }
+  .hero-scroll::after{
+    content:"";display:block;width:1px;height:36px;background:var(--gold);
+    margin:.8rem auto 0;animation:scrollPulse 2.4s ease-in-out infinite;transform-origin:top;
+  }
+  @keyframes scrollPulse{0%,100%{transform:scaleY(.3);opacity:.4}50%{transform:scaleY(1);opacity:1}}
+
+  @keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+  @media(max-width:860px){
+    .hero-vine{display:none}
+    .hero-scroll{display:none}
+  }
+
+  /* ---------- STRIP ---------- */
+  .strip{background:var(--wine-deep);color:var(--cream);padding:2.4rem 6vw;
+    display:flex;justify-content:space-around;gap:2rem;flex-wrap:wrap;text-align:center}
+  .strip div{flex:1;min-width:160px}
+  .strip .num{font-family:'Prata';font-size:2.4rem;color:var(--gold)}
+  .strip .lbl{font-size:.82rem;letter-spacing:.08em;opacity:.75;margin-top:.4rem;font-weight:300}
+
+  /* ---------- SECTION BASE ---------- */
+  section{padding:7rem 6vw}
+  .reveal{opacity:0;transform:translateY(36px);transition:.9s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  .center{text-align:center;max-width:680px;margin:0 auto 4rem}
+  .center h2{font-size:clamp(2rem,4vw,3.2rem);color:var(--wine);margin:1.1rem 0}
+  .center p{color:var(--ink-soft);font-size:1.05rem;line-height:1.75;font-weight:300}
+
+  /* ---------- MANIFESTO ---------- */
+  .manifesto{
+    background:radial-gradient(120% 100% at 50% 0%,#5c1a2b 0%,var(--wine-deep) 70%);
+    color:var(--cream);position:relative;overflow:hidden;text-align:center;
+  }
+  .manifesto::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:
+      radial-gradient(50% 40% at 15% 20%, rgba(200,162,74,.18), transparent 70%),
+      radial-gradient(50% 40% at 85% 80%, rgba(185,84,45,.12), transparent 70%);
+  }
+  .manifesto-inner{position:relative;z-index:1;max-width:920px;margin:0 auto}
+  .manifesto .eyebrow{color:var(--gold-soft);display:block;margin-bottom:1.6rem}
+  .manifesto h2{
+    font-size:clamp(2.4rem,5.8vw,4.6rem);color:var(--cream);
+    line-height:1.05;letter-spacing:-.01em;margin-bottom:1.2rem;
+  }
+  .manifesto h2 em{font-style:italic;color:var(--gold)}
+  .manifesto .lede{
+    font-family:'Prata',serif;font-size:clamp(1.15rem,1.6vw,1.45rem);
+    color:var(--gold-soft);max-width:640px;margin:0 auto 2.2rem;line-height:1.5;
+  }
+  .manifesto .body{
+    color:rgba(243,233,216,.78);max-width:640px;margin:0 auto;
+    font-size:1.05rem;line-height:1.8;font-weight:300;
+  }
+  .manifesto-divider{
+    width:60px;height:1px;background:var(--gold);
+    margin:2.4rem auto;opacity:.7;
+  }
+  .manifesto-quote{
+    font-family:'Prata',serif;font-style:italic;
+    color:var(--gold-soft);font-size:1.1rem;letter-spacing:.01em;
+  }
+
+  /* ---------- POSITIONING ---------- */
+  .positioning{background:var(--paper)}
+  .positioning .center .eyebrow{color:var(--terra)}
+  .segments{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;
+    margin:3rem auto 0;max-width:980px;
+  }
+  .seg{
+    padding:2rem 1.6rem;border-radius:6px;border:1px solid rgba(42,29,23,.1);
+    background:#fffaf0;text-align:center;position:relative;transition:.4s ease;
+  }
+  .seg .seg-name{
+    font-family:'Forum',serif;text-transform:uppercase;letter-spacing:.25em;
+    font-size:.78rem;color:var(--ink-soft);margin-bottom:1rem;
+  }
+  .seg .seg-bar{
+    height:6px;border-radius:3px;background:rgba(74,19,32,.08);
+    margin-bottom:1rem;overflow:hidden;
+  }
+  .seg .seg-bar i{display:block;height:100%;border-radius:3px}
+  .seg-1 .seg-bar i{width:30%;background:#c9b8a0}
+  .seg-2 .seg-bar i{width:70%;background:linear-gradient(90deg,var(--terra),var(--gold))}
+  .seg-3 .seg-bar i{width:100%;background:linear-gradient(90deg,var(--gold),var(--wine))}
+  .seg p{color:var(--ink-soft);font-size:.92rem;line-height:1.55;font-weight:300}
+  .seg.ours{
+    background:linear-gradient(180deg,#fffaf0,#f1e6d2);
+    border-color:var(--gold);box-shadow:0 20px 40px rgba(74,19,32,.14);
+    transform:translateY(-8px);
+  }
+  .seg.ours .seg-name{color:var(--wine)}
+  .seg.ours::before{
+    content:"наша территория";position:absolute;top:-12px;left:50%;transform:translateX(-50%);
+    background:var(--wine);color:var(--gold);font-family:'Forum',serif;
+    font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;
+    padding:.35rem .9rem;border-radius:30px;white-space:nowrap;
+  }
+  .pos-text{
+    max-width:680px;margin:3rem auto 0;text-align:center;
+    color:var(--ink-soft);font-size:1rem;line-height:1.75;font-weight:300;
+  }
+  @media(max-width:860px){
+    .segments{grid-template-columns:1fr}
+    .seg.ours{transform:none}
+  }
+
+  /* ---------- PRODUCERS ---------- */
+  .producers{background:var(--paper)}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+  .card{
+    background:linear-gradient(180deg,#fffaf0,#f1e6d2);border-radius:6px;overflow:hidden;
+    box-shadow:0 1px 0 rgba(0,0,0,.04);transition:.45s ease;border:1px solid rgba(42,29,23,.06);
+  }
+  .card:hover{transform:translateY(-8px);box-shadow:0 30px 50px rgba(74,19,32,.18)}
+  .card-top{height:190px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+  .c1 .card-top{background:radial-gradient(circle at 50% 40%,#7a2235,#3a0f1a)}
+  .c2 .card-top{background:radial-gradient(circle at 50% 40%,#1d5a7a,#0c2438)}
+  .c3 .card-top{background:radial-gradient(circle at 50% 40%,#9a6a2a,#4a3010)}
+  .card-top .mono{font-family:'Prata';font-size:3.4rem;color:rgba(255,255,255,.92)}
+  .card-top .ring{position:absolute;width:120px;height:120px;border:1px solid rgba(255,255,255,.25);border-radius:50%}
+  .card-body{padding:2rem 1.8rem 2.2rem}
+  .card-body .eyebrow{color:var(--terra)}
+  .card-body h3{font-size:1.5rem;color:var(--wine);margin:.6rem 0 .8rem}
+  .card-body p{color:var(--ink-soft);font-size:.95rem;line-height:1.65;font-weight:300}
+  .card-body .tags{margin-top:1.4rem;display:flex;flex-wrap:wrap;gap:.5rem}
+  .tag{font-size:.72rem;letter-spacing:.04em;padding:.35rem .8rem;border-radius:30px;
+    background:rgba(74,19,32,.07);color:var(--wine)}
+  @media(max-width:860px){.cards{grid-template-columns:1fr}}
+
+  /* ---------- CATALOGS ---------- */
+  .catalogs{background:var(--cream)}
+  .catalogs .center .eyebrow{color:var(--terra)}
+  .cat-list{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;
+    max-width:1100px;margin:0 auto;
+  }
+  .cat{
+    background:#fffaf0;border:1px solid rgba(42,29,23,.08);border-radius:6px;
+    padding:2rem 1.8rem;display:flex;flex-direction:column;gap:1rem;
+    transition:.4s ease;position:relative;
+  }
+  .cat:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(74,19,32,.12)}
+  .cat-head{display:flex;align-items:center;gap:1rem}
+  .cat-mark{
+    width:48px;height:48px;border-radius:50%;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Prata',serif;font-size:1.4rem;color:#fff;
+  }
+  .cat-1 .cat-mark{background:radial-gradient(circle at 40% 40%,#7a2235,#3a0f1a)}
+  .cat-2 .cat-mark{background:radial-gradient(circle at 40% 40%,#1d5a7a,#0c2438)}
+  .cat-3 .cat-mark{background:radial-gradient(circle at 40% 40%,#9a6a2a,#4a3010)}
+  .cat-head h3{font-size:1.15rem;color:var(--wine);font-family:'Prata',serif;line-height:1.2}
+  .cat-head .cat-sub{font-size:.78rem;color:var(--ink-soft);letter-spacing:.04em;margin-top:.2rem}
+  .cat p{color:var(--ink-soft);font-size:.92rem;line-height:1.55;font-weight:300;flex-grow:1}
+  .cat-actions{display:flex;flex-direction:column;gap:.5rem;margin-top:.4rem}
+  .cat-btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:.6rem;
+    font-family:'Manrope',sans-serif;font-size:.88rem;font-weight:500;letter-spacing:.03em;
+    padding:.85rem 1.4rem;border-radius:2px;text-decoration:none;
+    background:var(--wine);color:var(--gold);border:1px solid var(--wine);
+    transition:.3s ease;
+  }
+  .cat-btn:hover{background:var(--wine-deep);color:var(--gold-soft)}
+  .cat-btn.outline{background:transparent;color:var(--wine);border-color:rgba(74,19,32,.25)}
+  .cat-btn.outline:hover{border-color:var(--wine);background:rgba(74,19,32,.04)}
+  .cat-btn svg{width:14px;height:14px;flex-shrink:0}
+  .cat-note{
+    max-width:680px;margin:3rem auto 0;text-align:center;
+    color:var(--ink-soft);font-size:.92rem;line-height:1.6;font-weight:300;
+  }
+  @media(max-width:860px){.cat-list{grid-template-columns:1fr}}
+
+  /* ---------- GASTRO ---------- */
+  .gastro{background:linear-gradient(160deg,#5c1a2b,#2e0c15);color:var(--cream);
+    display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+  .gastro .eyebrow{color:var(--gold-soft)}
+  .gastro h2{font-size:clamp(2rem,3.8vw,3rem);color:var(--cream);margin:1.2rem 0 1.6rem}
+  .gastro p{color:rgba(243,233,216,.8);line-height:1.8;font-weight:300;font-size:1.05rem}
+  .pairings{margin-top:2rem;display:flex;flex-direction:column;gap:1.1rem}
+  .pair{display:flex;align-items:baseline;gap:1rem;padding-bottom:1.1rem;border-bottom:1px solid rgba(243,233,216,.14)}
+  .pair .p-wine{font-family:'Prata';color:var(--gold-soft);font-size:1.05rem;min-width:46%}
+  .pair .p-food{color:rgba(243,233,216,.7);font-size:.92rem;font-weight:300}
+  .gastro-visual{display:flex;justify-content:center;align-items:center}
+  .glass{width:200px;height:300px;position:relative}
+  .glass .bowl{position:absolute;top:0;left:50%;transform:translateX(-50%);width:150px;height:160px;
+    border:2px solid rgba(216,189,126,.5);border-top:none;border-radius:0 0 90px 90px;overflow:hidden}
+  .glass .liquid{position:absolute;bottom:0;left:0;right:0;height:60%;
+    background:linear-gradient(180deg,rgba(122,34,53,.55),#5c1320)}
+  .glass .stem{position:absolute;top:160px;left:50%;transform:translateX(-50%);width:3px;height:90px;background:rgba(216,189,126,.45)}
+  .glass .base{position:absolute;top:248px;left:50%;transform:translateX(-50%);width:110px;height:14px;
+    border:2px solid rgba(216,189,126,.45);border-radius:50%}
+  /* Реальное фото в гастро-блоке (подставляется сборкой, если задано gastro_photo) */
+  .gastro-photo{max-width:100%;height:auto;border-radius:8px;box-shadow:0 30px 50px rgba(0,0,0,.35)}
+  @media(max-width:860px){.gastro{grid-template-columns:1fr}.gastro-visual{display:none}}
+
+  /* ---------- PROCESS ---------- */
+  .process{background:var(--cream)}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem;margin-top:1rem}
+  .step{text-align:center}
+  .step .n{font-family:'Prata';font-size:1.4rem;color:var(--cream);background:var(--wine);
+    width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.4rem}
+  .step h3{font-size:1.25rem;color:var(--wine);margin-bottom:.7rem}
+  .step p{color:var(--ink-soft);font-size:.93rem;line-height:1.6;font-weight:300}
+  @media(max-width:860px){.steps{grid-template-columns:1fr;gap:2rem}}
+
+  /* ---------- CTA ---------- */
+  .cta{background:radial-gradient(120% 100% at 50% 0%,#6a1d2c,#2e0c15);color:var(--cream);text-align:center}
+  .cta h2{font-size:clamp(2.2rem,4.5vw,3.6rem);color:var(--cream);margin-bottom:1.3rem}
+  .cta p{color:rgba(243,233,216,.8);max-width:540px;margin:0 auto 2.6rem;line-height:1.7;font-weight:300}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--wine-deep);color:rgba(243,233,216,.6);padding:3rem 6vw;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;font-size:.85rem;font-weight:300}
+  footer .brand{font-size:1.1rem}
+  footer a{color:var(--gold-soft);text-decoration:none}
+
+  /* ---------- AGE GATE 18+ ---------- */
+  /* Пока возраст не подтверждён — прячем основное содержимое и скролл. */
+  html.age-locked{overflow:hidden}
+  html.age-locked body > nav,
+  html.age-locked body > header,
+  html.age-locked body > .strip,
+  html.age-locked body > section,
+  html.age-locked body > footer{visibility:hidden}
+  .age-gate{
+    position:fixed;inset:0;z-index:10000;display:none;
+    align-items:center;justify-content:center;padding:2rem;
+    background:radial-gradient(120% 100% at 50% 0%,#6a1d2c,#2e0c15);
+  }
+  .age-gate.show{display:flex}
+  .age-card{
+    max-width:520px;width:100%;text-align:center;color:var(--cream);
+    padding:3rem 2.4rem;border:1px solid rgba(200,162,74,.35);border-radius:6px;
+    background:rgba(20,6,10,.55);backdrop-filter:blur(6px);
+    box-shadow:0 30px 80px rgba(0,0,0,.5);
+  }
+  .age-mark{
+    font-family:'Prata',serif;font-size:3.4rem;color:var(--gold);
+    width:110px;height:110px;border:2px solid var(--gold);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;margin:0 auto 1.6rem;
+  }
+  .age-card h2{font-family:'Prata',serif;font-size:1.9rem;color:var(--cream);margin-bottom:1rem}
+  .age-card p{color:rgba(243,233,216,.78);line-height:1.6;font-weight:300;font-size:.98rem;margin-bottom:2rem}
+  .age-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+  .age-card .age-note{font-size:.78rem;color:rgba(243,233,216,.5);margin-top:1.6rem;line-height:1.5}
+  .age-deny{
+    display:none;text-align:center;color:var(--cream);
+    min-height:100vh;flex-direction:column;align-items:center;justify-content:center;
+    padding:2rem;background:var(--wine-deep);
+  }
+  .age-deny.show{display:flex}
+  .age-deny h2{font-family:'Prata',serif;font-size:2.2rem;color:var(--gold);margin-bottom:1rem}
+  .age-deny p{color:rgba(243,233,216,.7);max-width:420px;line-height:1.6;font-weight:300}
+</style>
+</head>
+<body>
+
+<!-- AGE GATE 18+ -->
+<div class="age-gate" id="ageGate" role="dialog" aria-modal="true" aria-labelledby="ageTitle">
+  <div class="age-card">
+    <div class="age-mark">18+</div>
+    <h2 id="ageTitle">Вам исполнилось 18 лет?</h2>
+    <p>Сайт содержит информацию об алкогольной продукции и предназначен только для совершеннолетних. Подтвердите свой возраст, чтобы продолжить.</p>
+    <div class="age-actions">
+      <button type="button" class="btn btn-gold" id="ageYes">Мне есть 18 лет</button>
+      <button type="button" class="btn btn-ghost" id="ageNo">Нет, мне меньше 18</button>
+    </div>
+    <div class="age-note">Чрезмерное употребление алкоголя вредит вашему здоровью.</div>
+  </div>
+</div>
+
+<!-- AGE DENY (для тех, кто моложе 18) -->
+<div class="age-deny" id="ageDeny">
+  <h2>Доступ ограничен</h2>
+  <p>Сайт закрыт для посетителей младше 18 лет. Возвращайтесь, когда вам исполнится 18.</p>
+</div>
+
+<nav id="nav">
+  <div class="brand"><img class="brand-logo" src="assets/logo/kvis-trade-gold.png" alt="КВИС ТРЕЙД"></div>
+  <div class="nav-links">
+    <a href="#manifesto">Философия</a>
+    <a href="#producers">Винодельни</a>
+    <a href="#catalogs">Каталоги</a>
+    <a href="#gastro">Гастрономия</a>
+    <a href="#process">Сотрудничество</a>
+    <a href="#contact" class="nav-cta">Запросить прайс</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-scene" aria-hidden="true">
+    <div class="hero-sky"></div>
+    <div class="hero-sun"></div>
+    <div class="hero-mountains-far"></div>
+    <div class="hero-mountains-near"></div>
+    <div class="hero-rows"></div>
+    <div class="hero-vine">
+      <svg viewBox="0 0 400 500" preserveAspectRatio="xMinYMax slice" xmlns="http://www.w3.org/2000/svg">
+        <path fill="currentColor" d="M0,500 L0,260 C30,250 55,235 80,210 C110,180 130,150 155,160 C175,170 165,200 195,210 C220,220 245,200 265,225 C285,250 270,290 295,310 C320,330 360,320 400,340 L400,500 Z"/>
+        <g fill="currentColor" opacity=".85">
+          <ellipse cx="90" cy="225" rx="14" ry="12"/>
+          <ellipse cx="110" cy="240" rx="14" ry="12"/>
+          <ellipse cx="100" cy="255" rx="14" ry="12"/>
+          <ellipse cx="170" cy="195" rx="13" ry="11"/>
+          <ellipse cx="190" cy="210" rx="13" ry="11"/>
+          <ellipse cx="180" cy="225" rx="13" ry="11"/>
+          <ellipse cx="240" cy="220" rx="13" ry="11"/>
+          <ellipse cx="260" cy="235" rx="13" ry="11"/>
+          <ellipse cx="280" cy="295" rx="13" ry="11"/>
+          <ellipse cx="300" cy="310" rx="13" ry="11"/>
+          <ellipse cx="290" cy="325" rx="13" ry="11"/>
+        </g>
+      </svg>
+    </div>
+    <div class="hero-vignette"></div>
+  </div>
+  <div class="hero-grid">
+    <div class="hero-text">
+      <div class="eyebrow">Болгария · Гастрономическая дипломатия</div>
+      <h1>Солнце Фракии <em>в&nbsp;каждом</em> бокале</h1>
+      <p>Эксклюзивное представительство болгарских винодельческих домов на российском рынке. Премиум и медиум-плюс — вина и крепкие напитки с защищённым происхождением, напрямую от производителя.</p>
+      <div class="hero-actions">
+        <a href="#producers" class="btn btn-gold">Наши винодельни</a>
+        <a href="#contact" class="btn btn-ghost">Стать партнёром</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">Прокрутите вниз</div>
+</header>
+
+<!-- STRIP -->
+<div class="strip">
+  <div><div class="num">3</div><div class="lbl">винодельческих дома</div></div>
+  <div><div class="num">120+</div><div class="lbl">лет винодельческих традиций</div></div>
+  <div><div class="num">PDO</div><div class="lbl">защищённое происхождение</div></div>
+  <div><div class="num">Москва</div><div class="lbl">доставка по РФ</div></div>
+</div>
+
+<!-- MANIFESTO -->
+<section class="manifesto" id="manifesto">
+  <div class="manifesto-inner reveal">
+    <span class="eyebrow">Наша философия</span>
+    <h2>Гастрономическая <em>дипломатия</em> и объединение через качественный продукт</h2>
+    <p class="lede">Торговля вместо войны.</p>
+    <p class="body">Мы верим, что хороший бокал делает то, чего не делают границы и заголовки: усаживает людей за один стол. Вино и крепкие напитки — это разговор культур, который ведётся медленно, спокойно и по-настоящему. Болгария умеет такой разговор — мы помогаем ему случиться в России.</p>
+    <div class="manifesto-divider"></div>
+    <p class="manifesto-quote">«Там, где есть стол с хорошим вином, нет места конфликту.»</p>
+  </div>
+</section>
+
+<!-- PRODUCERS -->
+<section class="producers" id="producers">
+  <div class="center reveal">
+    <div class="eyebrow">Портфель производителей</div>
+    <h2>Три легендарных дома Болгарии</h2>
+    <p>Мы представляем винодельни, чьи вина признаны на международных конкурсах и отражают характер болгарского терруара — от черноморского побережья до долин Фракии.</p>
+  </div>
+  <div class="cards">
+    <div class="card c1 reveal">
+      <div class="card-top"><div class="ring"></div><div class="mono">K</div></div>
+      <div class="card-body">
+        <div class="eyebrow">Долина Фракии</div>
+        <h3>Katarzyna Estate</h3>
+        <p>Премиальное хозяйство у границы с Грецией. Терруарные вина из Каберне, Мерло и Сиры, выдержанные во французском дубе. Эталон болгарского виноделия высокой категории.</p>
+        <div class="tags"><span class="tag">Красные купажи</span><span class="tag">Резерв</span><span class="tag">Премиум</span></div>
+      </div>
+    </div>
+    <div class="card c2 reveal">
+      <div class="card-top"><div class="ring"></div><div class="mono">B</div></div>
+      <div class="card-body">
+        <div class="eyebrow">Черноморское побережье</div>
+        <h3>Black Sea Gold</h3>
+        <p>Историческая винодельня в Поморие с погребами времён античности. Свежие белые, ароматные мускаты и игристые вина, рождённые морским климатом побережья.</p>
+        <div class="tags"><span class="tag">Белые вина</span><span class="tag">Игристое</span><span class="tag">Мускат</span></div>
+      </div>
+    </div>
+    <div class="card c3 reveal">
+      <div class="card-top"><div class="ring"></div><div class="mono">S</div></div>
+      <div class="card-body">
+        <div class="eyebrow">Крепкие напитки</div>
+        <h3>SIS Industries</h3>
+        <p>Производитель крепких напитков и спиртов с современным заводом. Бренди, ракия и фруктовые дистилляты, созданные по болгарским традициям перегонки.</p>
+        <div class="tags"><span class="tag">Бренди</span><span class="tag">Ракия</span><span class="tag">Дистилляты</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POSITIONING -->
+<section class="positioning" id="positioning">
+  <div class="center reveal">
+    <div class="eyebrow">Позиционирование</div>
+    <h2>Не дёшево — а правильно</h2>
+    <p>Долгие годы болгарское вино было в России синонимом «бюджетного». Мы выводим его туда, где ему место — в медиум-плюс и премиум-сегмент, рядом с винами с защищённым происхождением и серьёзной винодельческой школой.</p>
+  </div>
+  <div class="segments">
+    <div class="seg seg-1 reveal">
+      <div class="seg-name">Базовый</div>
+      <div class="seg-bar"><i></i></div>
+      <p>Массовый сегмент, ценовая конкуренция, безликий продукт. Не наша история.</p>
+    </div>
+    <div class="seg seg-2 ours reveal">
+      <div class="seg-name">Медиум-плюс</div>
+      <div class="seg-bar"><i></i></div>
+      <p>Терруарные вина, ароматные мускаты, выдержанные дистилляты — на полке винотеки и в винной карте ресторана.</p>
+    </div>
+    <div class="seg seg-3 ours reveal">
+      <div class="seg-name">Премиум</div>
+      <div class="seg-bar"><i></i></div>
+      <p>Резервы Katarzyna Estate и коллекционные позиции — для гастрономических ресторанов и ценителей.</p>
+    </div>
+  </div>
+  <p class="pos-text reveal">PDO, награды международных конкурсов, прозрачное происхождение и работа напрямую с винодельнями — то, на чём держится наше предложение.</p>
+</section>
+
+<!-- CATALOGS -->
+<section class="catalogs" id="catalogs">
+  <div class="center reveal">
+    <div class="eyebrow">Каталоги производителей</div>
+    <h2>Ассортимент и прайс</h2>
+    <p>Скачайте PDF-каталог каждой винодельни — позиции, винтажи, упаковка и рекомендованные цены. Если каталога ещё нет на странице, отправим его на почту в день обращения.</p>
+  </div>
+  <div class="cat-list">
+    <div class="cat cat-1 reveal">
+      <div class="cat-head">
+        <div class="cat-mark">K</div>
+        <div>
+          <h3>Katarzyna Estate</h3>
+          <div class="cat-sub">Долина Фракии · красные купажи</div>
+        </div>
+      </div>
+      <p>Премиальная линейка: Каберне, Мерло, Сира и резервные купажи в дубе.</p>
+      <div class="cat-actions"><a class="cat-btn outline" href="mailto:kvistrade@gmail.com?subject=Запрос каталога: Katarzyna Estate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg>Запросить по почте</a></div>
+    </div>
+    <div class="cat cat-2 reveal">
+      <div class="cat-head">
+        <div class="cat-mark">B</div>
+        <div>
+          <h3>Black Sea Gold</h3>
+          <div class="cat-sub">Поморие · белые, игристые, мускаты</div>
+        </div>
+      </div>
+      <p>Свежие белые, ароматные мускаты и игристые вина черноморского терруара.</p>
+      <div class="cat-actions"><a class="cat-btn outline" href="mailto:kvistrade@gmail.com?subject=Запрос каталога: Black Sea Gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg>Запросить по почте</a></div>
+    </div>
+    <div class="cat cat-3 reveal">
+      <div class="cat-head">
+        <div class="cat-mark">S</div>
+        <div>
+          <h3>SIS Industries</h3>
+          <div class="cat-sub">Крепкие напитки · бренди, ракия</div>
+        </div>
+      </div>
+      <p>Болгарские бренди, ракия и фруктовые дистилляты разных лет выдержки.</p>
+      <div class="cat-actions"><a class="cat-btn outline" href="mailto:kvistrade@gmail.com?subject=Запрос каталога: SIS Industries"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg>Запросить по почте</a></div>
+    </div>
+  </div>
+  <p class="cat-note reveal">Для дистрибьюторов и сетей готовим расширенный коммерческий пакет: техкарты, фото в высоком разрешении, описания на русском, рекомендованные розничные цены.</p>
+</section>
+
+<!-- GASTRO -->
+<section class="gastro" id="gastro">
+  <div class="reveal">
+    <div class="eyebrow">Гастрономия</div>
+    <h2>Вина, созданные для стола</h2>
+    <p>Болгарские вина рождены рядом с едой — они раскрываются в компании мяса на углях, выдержанных сыров и щедрых блюд. Несколько сочетаний, которые мы рекомендуем гостям и ресторанным партнёрам.</p>
+    <div class="pairings">
+      <div class="pair"><span class="p-wine">Каберне Резерв</span><span class="p-food">баранина на гриле, телятина, твёрдые сыры</span></div>
+      <div class="pair"><span class="p-wine">Мускат Черноморский</span><span class="p-food">морепродукты, паштеты, фруктовые десерты</span></div>
+      <div class="pair"><span class="p-wine">Болгарская ракия</span><span class="p-food">мезе, копчёности, домашние соленья</span></div>
+    </div>
+  </div>
+  <div class="gastro-visual reveal">
+    <div class="glass">
+      <div class="bowl"><div class="liquid"></div></div>
+      <div class="stem"></div>
+      <div class="base"></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="center reveal">
+    <div class="eyebrow">Как мы работаем</div>
+    <h2>Сотрудничество без посредников</h2>
+  </div>
+  <div class="steps">
+    <div class="step reveal">
+      <div class="n">1</div>
+      <h3>Подбор ассортимента</h3>
+      <p>Формируем линейку под ваш формат — ресторан, винотека или дистрибуция. Презентация и дегустационные образцы.</p>
+    </div>
+    <div class="step reveal">
+      <div class="n">2</div>
+      <h3>Прайс и логистика</h3>
+      <p>Прозрачные цены от производителя, расчёт доставки до Москвы и регионов, полное сопровождение поставки.</p>
+    </div>
+    <div class="step reveal">
+      <div class="n">3</div>
+      <h3>Поддержка продаж</h3>
+      <p>Материалы на русском языке, описания вин, обучение персонала и помощь в продвижении на полке и в меню.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+  <div class="reveal">
+    <div class="eyebrow">Свяжитесь с нами</div>
+    <h2>Запросите презентацию<br>и прайс-лист</h2>
+    <p>Пришлём каталог болгарских вин и крепких напитков на русском языке, актуальные цены и условия доставки в вашем городе.</p>
+    <div class="hero-actions" style="justify-content:center">
+      <a href="mailto:kvistrade@gmail.com" class="btn btn-gold">Написать на почту</a>
+      <a href="tel:+79162432396" class="btn btn-ghost">Позвонить</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div class="brand"><img class="brand-logo" src="assets/logo/kvis-trade-gold.png" alt="КВИС ТРЕЙД"></div>
+    <div style="margin-top:.6rem">Официальный представитель болгарских производителей в РФ</div>
+  </div>
+  <div>
+    Katarzyna Estate · Black Sea Gold · SIS Industries<br>
+    <a href="mailto:kvistrade@gmail.com">kvistrade@gmail.com</a> · +7 916 243-23-96
+  </div>
+</footer>
+
+<script>
+  // age gate 18+
+  (function(){
+    const gate=document.getElementById('ageGate');
+    const deny=document.getElementById('ageDeny');
+    let stored=null;
+    try{ stored=localStorage.getItem('ageConfirmed'); }catch(e){}
+    if(stored==='yes'){
+      document.documentElement.classList.remove('age-locked');
+    } else if(stored==='no'){
+      // оставляем age-locked, чтобы сайт под заглушкой был скрыт
+      deny.classList.add('show');
+    } else {
+      gate.classList.add('show');
+    }
+    document.getElementById('ageYes').addEventListener('click',()=>{
+      try{ localStorage.setItem('ageConfirmed','yes'); }catch(e){}
+      gate.classList.remove('show');
+      document.documentElement.classList.remove('age-locked');
+    });
+    document.getElementById('ageNo').addEventListener('click',()=>{
+      try{ localStorage.setItem('ageConfirmed','no'); }catch(e){}
+      gate.classList.remove('show');
+      // age-locked не снимаем — сайт под заглушкой должен оставаться скрытым
+      deny.classList.add('show');
+    });
+  })();
+
+  // nav background on scroll
+  const nav=document.getElementById('nav');
+  addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40));
+  // staggered reveal
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach((e,i)=>{if(e.isIntersecting){
+      setTimeout(()=>e.target.classList.add('in'),i*90);
+      io.unobserve(e.target);
+    }});
+  },{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
