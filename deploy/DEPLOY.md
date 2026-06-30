@@ -1,5 +1,22 @@
 # Деплой РакияКлуб.рф на Beget Ubuntu VPS
 
+## ⚡ Быстрый старт (скрипты)
+
+На свежем Ubuntu VPS под root:
+
+```bash
+git clone https://github.com/ivomih37-star/sait.git /opt/rakiaclub
+cd /opt/rakiaclub && git checkout claude/project-1-9yqn8v
+cp .env.example .env && nano .env        # вписать токены/секреты
+sudo bash deploy/setup.sh --seed          # Docker + сборка + БД + демо-данные
+sudo bash deploy/ssl.sh you@email.com     # Nginx + Let's Encrypt SSL
+```
+
+Перед запуском DNS-записи домена должны указывать на сервер (см. шаг 0 ниже).
+Ниже — то же самое вручную и альтернатива на PM2.
+
+---
+
 Два пути на выбор: **Docker Compose** (проще) или **PM2 + системный PostgreSQL/Nginx**.
 
 ## 0. Предпосылки
