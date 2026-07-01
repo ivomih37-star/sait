@@ -1,0 +1,10 @@
+[Unit]
+Description=vpn-server: ежедневный бэкап конфигов
+
+[Timer]
+OnCalendar=daily
+RandomizedDelaySec=30m
+Persistent=true
+
+[Install]
+WantedBy=timers.target

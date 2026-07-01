@@ -1,0 +1,9 @@
+[Unit]
+Description=vpn-server: статус сервера в Telegram
+Wants=network-online.target
+After=network-online.target docker.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=__VPN_ROOT__
+ExecStart=__VPN_ROOT__/scripts/telegram-notify.sh

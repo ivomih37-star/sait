@@ -1,0 +1,64 @@
+# Российские домены — трафик к ним всегда идёт НАПРЯМУЮ, без VPN.
+# Формат: один домен на строку, "#" — комментарий. Поддомены (www., m., ...) добавлять не нужно —
+# split-tunnel-router.sh на роутере матчит и сам домен, и все его поддомены через dnsmasq.
+# Список курируется вручную — добавляйте свои сервисы по необходимости.
+
+# Поисковики и соцсети
+yandex.ru
+ya.ru
+yandex.net
+vk.com
+vk.ru
+ok.ru
+mail.ru
+
+# Госуслуги и госорганы
+gosuslugi.ru
+government.ru
+kremlin.ru
+nalog.gov.ru
+pfr.gov.ru
+mos.ru
+gu.spb.ru
+
+# Банки
+sberbank.ru
+sber.ru
+tinkoff.ru
+tbank.ru
+alfabank.ru
+vtb.ru
+gazprombank.ru
+raiffeisen.ru
+open.ru
+psbank.ru
+
+# Платёжные системы
+mironline.ru
+nspk.ru
+
+# Операторы связи
+mts.ru
+beeline.ru
+megafon.ru
+tele2.ru
+rostelecom.ru
+
+# Маркетплейсы и сервисы
+wildberries.ru
+ozon.ru
+avito.ru
+cian.ru
+dns-shop.ru
+citilink.ru
+
+# Медиа и стриминг
+rutube.ru
+kinopoisk.ru
+dzen.ru
+ivi.ru
+rzd.ru
+
+# Инфраструктура/CDN, которая может резолвиться на РФ IP
+yastatic.net
+mycdn.me

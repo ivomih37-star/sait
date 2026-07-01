@@ -1,0 +1,55 @@
+# Иностранные сервисы, которые всегда идут ЧЕРЕЗ VPN (заблокированы в РФ или геоблокируют РФ-IP).
+# Формат: один домен на строку, "#" — комментарий.
+# Используется split-tunnel-router.sh (роутер) для принудительной маршрутизации через VPN,
+# независимо от политики "мир минус Россия" (некоторые из этих сервисов сами имеют IP из RU-диапазонов
+# у локальных CDN-нод, поэтому одного geo-IP решения недостаточно — нужен явный домен-список).
+#
+# ВАЖНО: попадание в этот список не гарантирует обход детекции VPN самим сервисом
+# (см. vpn-server/docs/SECURITY.md) — датацентровые IP Hetzner/Vultr/Timeweb часто
+# помечены как proxy/VPN базами репутации Netflix/Spotify и т.п.
+
+# Стриминг видео
+netflix.com
+nflxvideo.net
+nflxso.net
+disneyplus.com
+hbomax.com
+hulu.com
+bbc.co.uk
+bbci.co.uk
+
+# Музыка
+spotify.com
+scdn.co
+spotifycdn.com
+
+# Игры
+steampowered.com
+steamcommunity.com
+steamcontent.com
+
+# Соцсети/мессенджеры, заблокированные в РФ
+instagram.com
+facebook.com
+fbcdn.net
+twitter.com
+x.com
+linkedin.com
+discord.com
+discord.gg
+discordapp.com
+
+# Разработка/AI сервисы с геоблокировкой РФ
+openai.com
+chatgpt.com
+anthropic.com
+claude.ai
+
+# Видео/образование
+youtube.com
+ytimg.com
+googlevideo.com
+twitch.tv
+
+# Платёжные/облачные сервисы с геоблокировкой РФ-карт/IP
+paypal.com

@@ -25,3 +25,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# vpn-server: секреты и сгенерированные клиентские конфиги не коммитим
+vpn-server/.env
+vpn-server/configs/*.conf
+vpn-server/configs/*.png
+!vpn-server/configs/.gitkeep
+vpn-server/xray/config.json
+vpn-server/routing/ru-ipv4.txt
+vpn-server/routing/world-minus-ru.txt
+vpn-server/routing/*.bak
+vpn-server/routing/router-artifacts/
+vpn-server/*.log
