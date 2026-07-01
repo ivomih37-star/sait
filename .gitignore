@@ -22,6 +22,9 @@ yarn-error.log*
 # local env files
 .env*.local
 
+# unified local secrets & logs store (see SECRETS.md)
+/.secrets/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
