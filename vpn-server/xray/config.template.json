@@ -1,0 +1,39 @@
+{
+  "log": { "loglevel": "warning", "access": "none", "error": "/var/log/xray/error.log" },
+  "inbounds": [
+    {
+      "listen": "0.0.0.0",
+      "port": __XRAY_PORT__,
+      "protocol": "vless",
+      "settings": {
+        "clients": [
+          { "id": "__UUID__", "flow": "xtls-rprx-vision" }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "reality",
+        "realitySettings": {
+          "show": false,
+          "dest": "__DEST__:443",
+          "xver": 0,
+          "serverNames": [ "__SNI__" ],
+          "privateKey": "__PRIVATE_KEY__",
+          "shortIds": [ "__SHORT_ID__" ]
+        }
+      },
+      "sniffing": { "enabled": true, "destOverride": [ "http", "tls", "quic" ] }
+    }
+  ],
+  "outbounds": [
+    { "protocol": "freedom", "tag": "direct" },
+    { "protocol": "blackhole", "tag": "block" }
+  ],
+  "routing": {
+    "domainStrategy": "AsIs",
+    "rules": [
+      { "type": "field", "protocol": [ "bittorrent" ], "outboundTag": "block" }
+    ]
+  }
+}

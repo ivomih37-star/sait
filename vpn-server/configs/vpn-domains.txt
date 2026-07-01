@@ -1,0 +1,56 @@
+# Domains that should route THROUGH the VPN (blocked / geo-restricted abroad).
+# Used by the OpenWrt domain-split guide (dnsmasq nftset) and as a reference
+# for client-side rule apps (v2rayNG / Nekoray routing).
+#
+# NOTE on VPN-detection (Netflix/Spotify/Steam/banks):
+#   * A datacenter IP cannot fully hide from Netflix/Disney+ VPN detection.
+#     Routing their domains here gets you geo-unblocking where possible; for
+#     stubborn streaming use a residential/ISP proxy on the server (out of
+#     scope). Steam/Spotify generally work fine via a clean VPN IP.
+#   * BANKING apps deliberately BLOCK VPN IPs. Keep them DIRECT — they live in
+#     scripts/update-routes.sh DIRECT_DOMAINS, NOT here.
+#
+# Format: bare domains, one per line, comments with '#'.
+
+# --- Messaging / social often blocked ---
+telegram.org
+t.me
+instagram.com
+facebook.com
+fbcdn.net
+twitter.com
+x.com
+whatsapp.com
+
+# --- Video / streaming ---
+youtube.com
+googlevideo.com
+ytimg.com
+netflix.com
+nflxvideo.net
+nflximg.net
+spotify.com
+scdn.co
+twitch.tv
+
+# --- AI / dev services with geoblocks ---
+openai.com
+chatgpt.com
+oaistatic.com
+claude.ai
+anthropic.com
+gemini.google.com
+github.com
+githubusercontent.com
+
+# --- Gaming ---
+steampowered.com
+steamcommunity.com
+steamstatic.com
+epicgames.com
+
+# --- News / misc frequently blocked ---
+bbc.co.uk
+bbc.com
+medium.com
+notion.so
