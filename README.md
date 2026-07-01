@@ -5,6 +5,8 @@
 
 📚 Все материалы проекта (контент, правила, смета, бланки) — в [`CONTENT.md`](CONTENT.md).
 
+🔒 Как хранить ключи, токены и логи — в [`SECRETS.md`](SECRETS.md).
+
 Сделан на [Next.js](https://nextjs.org/) со статическим экспортом и
 автоматически деплоится на GitHub Pages (см. `.github/workflows/nextjs.yml`).
 
