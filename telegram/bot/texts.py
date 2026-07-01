@@ -2,8 +2,8 @@
 """Тексты диалогового бота «Ракия Клуб». Голос и подпись — по BRAND.md.
 Меняйте плейсхолдеры: @raki_club_msk, @raki_club_chat, ссылку на сайт."""
 
-SITE = "https://ivomih37-star.github.io/sait/"
-SCHEDULE_URL = "https://ivomih37-star.github.io/sait/raspisanie/"
+SITE = "https://ракияклуб.рф/"
+SCHEDULE_URL = "https://ракияклуб.рф/raspisanie/"
 CHANNEL = "@raki_club_msk"
 CHAT = "@raki_club_chat"
 SIGN = "🥃 Ракия Клуб · Москва · @raki_club_msk · 18+"
