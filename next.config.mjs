@@ -1,11 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Статический экспорт для деплоя на GitHub Pages
-  output: "export",
+  // Серверный рантайм для API Routes, TMA-валидации и Prisma.
+  // standalone — компактная сборка для Docker / PM2 на Beget VPS.
+  output: "standalone",
+  reactStrictMode: true,
   images: {
-    unoptimized: true,
+    remotePatterns: [
+      { protocol: "https", hostname: "**" },
+    ],
   },
-  trailingSlash: true,
+  experimental: {
+    serverComponentsExternalPackages: ["@prisma/client", "prisma"],
+  },
 };
 
 export default nextConfig;

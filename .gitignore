@@ -20,7 +20,21 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
+.env
 .env*.local
+!.env.example
+
+# prisma
+/prisma/*.db
+/prisma/migrations/dev.db*
+
+# next standalone / build artifacts
+/.next/standalone
+/.next/cache
+
+# pm2 / logs
+*.log
+/logs
 
 # typescript
 *.tsbuildinfo

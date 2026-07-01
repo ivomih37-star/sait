@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: ["main", "claude/**"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate Prisma client
+        run: npx prisma generate
+
+      - name: Unit tests (vitest)
+        run: npm test
+
+      - name: Build (Next.js standalone)
+        env:
+          # Сборке не нужно подключение к БД — только наличие переменной для Prisma
+          DATABASE_URL: "postgresql://user:pass@localhost:5432/db?schema=public"
+        run: npm run build
